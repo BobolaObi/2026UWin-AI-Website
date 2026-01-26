@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windsor AI Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <a class="brand" title="Windsor AI Club Logo" href="index.html">
+        <div class="logo">AI</div>
+        Windsor AI Club
+      </a>
+      <nav>
+        <a href="about.html" title="Learn more about the Windsor AI Club">About</a>
+        <a href="events.html" title="View our upcoming events">Events</a>
+        <a href="projects.html" title="Browse our past and current projects">Projects</a>
+        <a href="join.html" title="Find out how to join the Windsor AI Club">Join</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="events">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Campus-made & community-ready</div>
+          <h1>A place to build real <br/> AI projects.</h1>
+          <p class="sub">Student-led AI community at the University of Windsor focused on hands-on learning, research, and real-world impact.</p>
+
+          <div class="actions">
+            <button class="btn primary">Join the Club</button>
+            <button class="btn secondary">View Events</button>
+          </div>
+
+          <div class="meta">
+            <span class="pill">Weekly labs</span>
+            <span class="pill soft">Industry mentorship</span>
+            <span class="pill soft">Research sprints</span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="floating-label">@windsor.ai</div>
+          <div class="card-band">
+            <div class="event-strip" id="eventStrip" aria-label="Latest event highlights"></div>
+          </div>
+          <div class="floating-label right">@uwindsorCS</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const events = [
+      { title: 'AI + Coffee: LLMs 101', date: 'Oct 12, 2024', image: 'https://images.unsplash.com/photo-1527443224154-dc2b13575b55?auto=format&fit=crop&w=900&q=80', tag: '@uwindsor_ai' },
+      { title: 'Vision Hack Night', date: 'Oct 19, 2024', image: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80', tag: '#cv-meetup' },
+      { title: 'Robotics Lab Tour', date: 'Oct 24, 2024', image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80', tag: '@engineering' },
+      { title: 'Career Sprint: AI Product', date: 'Nov 02, 2024', image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=80', tag: '#career-lab' },
+      { title: 'Edge ML Workshop', date: 'Nov 09, 2024', image: 'https://images.unsplash.com/photo-1527443195645-99a72b1619c0?auto=format&fit=crop&w=900&q=80', tag: '@iot' },
+      { title: 'GenAI Design Jam', date: 'Nov 16, 2024', image: 'https://images.unsplash.com/photo-1558346750-0c4c090f0411?auto=format&fit=crop&w=900&q=80', tag: '@design' },
+      { title: 'Model Deployment Clinic', date: 'Nov 23, 2024', image: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=900&q=80', tag: '#ship-it' },
+      { title: 'Winter Showcase', date: 'Dec 03, 2024', image: 'https://images.unsplash.com/photo-1526662092594-e98c1e356d6a?auto=format&fit=crop&w=900&q=80', tag: '@capstone' }
+    ];
+
+    const strip = document.getElementById('eventStrip');
+    const latestSeven = events.slice(-7);
+
+    latestSeven.forEach((event, index) => {
+      const card = document.createElement('div');
+      card.className = 'event-card';
+      card.style.setProperty('--card-rotation', `${(index - 3) * 3}deg`);
+      card.style.setProperty('--float-delay', `${index * 0.35}s`);
+      card.style.backgroundImage = `url(${event.image})`;
+
+      const overlay = document.createElement('div');
+      overlay.className = 'event-overlay';
+
+      const tag = document.createElement('span');
+      tag.className = 'pill bubble';
+      tag.textContent = event.tag;
+
+      const meta = document.createElement('div');
+      meta.className = 'event-meta';
+      meta.innerHTML = `<p>${event.title}</p><span>${event.date}</span>`;
+
+      overlay.appendChild(tag);
+      overlay.appendChild(meta);
+      card.appendChild(overlay);
+      strip.appendChild(card);
+    });
+  </script>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="brand">Windsor AI Club</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="events.html">Events</a>
+        <a href="projects.html">Projects</a>
+        <a href="join.html">Join</a>
+        <a href="https://discord.com" target="_blank" rel="noreferrer">Discord</a>
+      </div>
+      <div class="footer-meta">Building the future of AI together.</div>
+    </div>
+  </footer>
+</body>
+</html>
