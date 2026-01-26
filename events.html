@@ -6,93 +6,76 @@
   <title>Events | Windsor AI Club</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
 </head>
-<body>
-  <div class="shell">
-    <header>
+<body class="events-page">
+  <div class="events-hero">
+    <header class="events-nav" data-reveal>
       <a class="brand" href="index.html">
-        <div class="logo">AI</div>
+        <img class="uw-logo" src="university-of-windsor-logo-vector.svg" alt="University of Windsor logo">
         Windsor AI Club
       </a>
       <nav>
-        <a href="about.html">About</a>
-        <a href="events.html">Events</a>
-        <a href="projects.html">Projects</a>
+        <a class="active" href="events.html">Events</a>
+        <a href="leaders.html">Leaders</a>
         <a href="join.html">Join</a>
       </nav>
     </header>
-
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow">Monthly Events</div>
-          <h1>Show up, learn fast, have fun.</h1>
-        </div>
-      </div>
-    </section>
-
-    <section class="section events">
-      <div class="list">
-        <div class="list-item">
-          <h4>Kahoots</h4>
-          <p>Monthly Kahoots on the latest AI topics for cash prizes.</p>
-        </div>
-        <div class="list-item">
-          <h4>Research Articles</h4>
-          <p>Discuss and break down the latest AI research papers with peers and professors.</p>
-        </div>
-        <div class="list-item">
-          <h4>Workshops</h4>
-          <p>Hands-on workshops on ML frameworks, GenAI tooling, and deployment stacks.</p>
-        </div>
-        <div class="list-item">
-          <h4>Infographics</h4>
-          <p>Engaging visuals to simplify complex AI concepts.</p>
-        </div>
-        <div class="list-item">
-          <h4>AI Project Showcase</h4>
-          <p>Present your builds and get feedback from peers and mentors.</p>
-        </div>
-        <div class="list-item">
-          <h4>AI Thesis Presentations</h4>
-          <p>Explore ethical implications and the societal impact of AI.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section news">
-      <div class="section-head">
-        <p class="eyebrow soft-eye">Latest News</p>
-        <h2>What’s shipping next.</h2>
-      </div>
-      <div class="news-grid">
-        <article class="news-card">
-          <div class="news-tag">Research Board</div>
-          <p class="news-title">Join our exclusive AI Club research board to gain real-world experience.</p>
-          <a class="news-link" href="#">Read more →</a>
-        </article>
-        <article class="news-card">
-          <div class="news-tag">Workshop Series</div>
-          <p class="news-title">A new hands-on series exploring the world of generative AI.</p>
-          <a class="news-link" href="#">Read more →</a>
-        </article>
-        <article class="news-card">
-          <div class="news-tag">AI Club Merch</div>
-          <p class="news-title">First-ever merch drop: crewnecks and stickers for members.</p>
-          <a class="news-link" href="#">Read more →</a>
-        </article>
-      </div>
-    </section>
+    <div class="events-hero-content" data-reveal>
+      <a class="back-link" href="index.html" data-reveal>← Back</a>
+      <h1 data-reveal>Events &amp; Deadlines</h1>
+      <p class="events-season" data-reveal>January 2026</p>
+    </div>
+    <div class="events-hero-figure"></div>
   </div>
 
-  <footer class="footer">
+  <div class="events-shell">
+    <div class="event-list">
+      <div class="event-row" data-reveal>
+        <div>
+          <h3>Clubs Day @ CAW Commons <span>Blue &amp; Yellow booth</span></h3>
+          <p>Kahoot, AI image booth, “AI or Not?” game, post-its, chatbot comparisons, prompt explainer.</p>
+        </div>
+        <div class="event-date breath">Jan 27 · 11:00 AM–2:00 PM</div>
+      </div>
+      <div class="event-row" data-reveal>
+        <div>
+          <h3>Research Stream Plan Due <span>Isaac, Hassan, Prushti</span></h3>
+          <p>Finalize paper, datasets, workshop structure, starter repo, and full timeline.</p>
+        </div>
+        <div class="event-date breath">Jan 30 · 5:00 PM</div>
+      </div>
+      <div class="event-row" data-reveal>
+        <div>
+          <h3>Project Track Plan Due <span>Sadat &amp; Abir</span></h3>
+          <p>Deliver final product description, skills, prerequisites, weekly breakdown, and runbook.</p>
+        </div>
+        <div class="event-date breath">Jan 30 · 5:00 PM</div>
+      </div>
+      <div class="event-row" data-reveal>
+        <div>
+          <h3>Trivia Night Plan <span>Events + WeSecure collab</span></h3>
+          <p>Mahnoz + Omar to coordinate with other groups; finalize flow and assets.</p>
+        </div>
+        <div class="event-date breath">In progress</div>
+      </div>
+      <div class="event-row" data-reveal>
+        <div>
+          <h3>Online Seminar <span>with Omar El Sharriff</span></h3>
+          <p>Schedule, marketing, and speaker prep.</p>
+        </div>
+        <div class="event-date breath">Scheduling</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer dark-footer" data-reveal>
     <div class="footer-inner">
       <div class="brand">Windsor AI Club</div>
       <div class="footer-links">
         <a href="index.html">Home</a>
-        <a href="about.html">About</a>
         <a href="events.html">Events</a>
-        <a href="projects.html">Projects</a>
+        <a href="leaders.html">Leaders</a>
         <a href="join.html">Join</a>
         <a href="https://discord.com" target="_blank" rel="noreferrer">Discord</a>
       </div>

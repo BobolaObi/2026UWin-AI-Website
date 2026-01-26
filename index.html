@@ -6,18 +6,18 @@
   <title>Windsor AI Club</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
   <div class="shell">
-    <header>
-      <a class="brand" title="Windsor AI Club Logo" href="index.html">
-        <div class="logo">AI</div>
+    <header data-reveal>
+      <a class="brand" title="Windsor AI Club Logo" href="index.html" data-reveal>
+        <img class="uw-logo" src="university-of-windsor-logo-vector.svg" alt="University of Windsor logo">
         Windsor AI Club
       </a>
       <nav>
-        <a href="about.html" title="Learn more about the Windsor AI Club">About</a>
         <a href="events.html" title="View our upcoming events">Events</a>
-        <a href="projects.html" title="Browse our past and current projects">Projects</a>
+        <a href="leaders.html" title="Meet the group leaders">Leaders</a>
         <a href="join.html" title="Find out how to join the Windsor AI Club">Join</a>
       </nav>
     </header>
@@ -25,23 +25,23 @@
     <section class="hero" id="events">
       <div class="hero-grid">
         <div class="hero-copy">
-          <div class="eyebrow">Campus-made & community-ready</div>
-          <h1>A place to build real <br/> AI projects.</h1>
-          <p class="sub">Student-led AI community at the University of Windsor focused on hands-on learning, research, and real-world impact.</p>
+          <div class="eyebrow" data-reveal>Campus-made & community-ready</div>
+          <h1 data-reveal>A place to build real <br/> AI projects.</h1>
+          <p class="sub" data-reveal>A student-led AI community at the University of Windsor. Join our community of over 500 AI enthusiasts and practitioners — we explore cutting-edge technologies, share knowledge, and build the future together.</p>
 
-          <div class="actions">
-            <button class="btn primary">Join the Club</button>
+          <div class="actions" data-reveal>
+            <button class="btn primary breath">Join the Club</button>
             <button class="btn secondary">View Events</button>
           </div>
 
-          <div class="meta">
-            <span class="pill">Weekly labs</span>
-            <span class="pill soft">Industry mentorship</span>
-            <span class="pill soft">Research sprints</span>
+          <div class="meta" data-reveal>
+            <span class="pill">500+ members</span>
+            <span class="pill soft">40+ labs & workshops</span>
+            <span class="pill soft">12 projects in flight</span>
           </div>
         </div>
 
-        <div class="hero-visual">
+        <div class="hero-visual" data-reveal>
           <div class="floating-label">@windsor.ai</div>
           <div class="card-band">
             <div class="event-strip" id="eventStrip" aria-label="Latest event highlights"></div>
@@ -51,6 +51,20 @@
       </div>
     </section>
   </div>
+
+  <footer class="footer" data-reveal>
+    <div class="footer-inner">
+      <div class="brand">Windsor AI Club</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="leaders.html">Leaders</a>
+        <a href="join.html">Join</a>
+        <a href="https://discord.com" target="_blank" rel="noreferrer">Discord</a>
+      </div>
+      <div class="footer-meta">Building the future of AI together.</div>
+    </div>
+  </footer>
 
   <script>
     const events = [
@@ -91,20 +105,5 @@
       strip.appendChild(card);
     });
   </script>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="brand">Windsor AI Club</div>
-      <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="events.html">Events</a>
-        <a href="projects.html">Projects</a>
-        <a href="join.html">Join</a>
-        <a href="https://discord.com" target="_blank" rel="noreferrer">Discord</a>
-      </div>
-      <div class="footer-meta">Building the future of AI together.</div>
-    </div>
-  </footer>
 </body>
 </html>
