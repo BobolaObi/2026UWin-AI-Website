@@ -8,9 +8,9 @@
   <link rel="stylesheet" href="style.css">
   <script src="app.js" defer></script>
 </head>
-<body>
-  <div class="shell">
-    <header data-reveal>
+<body class="events-page join-page">
+  <div class="events-hero">
+    <header class="events-nav" data-reveal>
       <a class="brand" href="index.html">
         <img class="uw-logo" src="university-of-windsor-logo-vector.svg" alt="University of Windsor logo">
         Windsor AI Club
@@ -18,25 +18,56 @@
       <nav>
         <a href="events.html">Events</a>
         <a href="leaders.html">Leaders</a>
-        <a href="join.html">Join</a>
+        <a class="active" href="join.html">Join</a>
       </nav>
     </header>
+    <div class="events-hero-content" data-reveal>
+      <a class="back-link" href="index.html" data-reveal>← Back</a>
+      <h1 data-reveal>Join</h1>
+      <p class="events-season" data-reveal>Get involved this week</p>
+      <p class="sub" data-reveal>We’re a student-led AI community at the University of Windsor. If you’re curious, you belong here.</p>
+    </div>
+  </div>
 
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow" data-reveal>Join Our Community Today!</div>
-          <h1 data-reveal>Connect, learn, and build the future with us.</h1>
-        </div>
+  <div class="events-shell">
+    <section class="join-grid">
+      <div class="join-card" data-reveal>
+        <div class="join-badge">01</div>
+        <h2>Join Discord</h2>
+        <p>Announcements, meetups, project teams, and office hours.</p>
+        <a class="join-link" href="https://discord.com" target="_blank" rel="noreferrer">Open Discord →</a>
+      </div>
+      <div class="join-card" data-reveal>
+        <div class="join-badge">02</div>
+        <h2>Get updates</h2>
+        <p>One email when we have events, labs, or deadlines.</p>
+        <form class="join-form" action="#" method="post">
+          <label class="sr-only" for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@uwindsor.ca" autocomplete="email" />
+          <button class="btn primary" type="submit">Notify me</button>
+        </form>
+      </div>
+      <div class="join-card" data-reveal>
+        <div class="join-badge">03</div>
+        <h2>Show up</h2>
+        <p>New to AI? Come to a lab. Experienced? Help someone ship.</p>
+        <a class="join-link" href="events.html">See events →</a>
+      </div>
+      <div class="join-card" data-reveal>
+        <div class="join-badge">04</div>
+        <h2>Lead or contribute</h2>
+        <p>Help run events, build the site, or join a research/project stream.</p>
+        <a class="join-link" href="leaders.html">Meet the leaders →</a>
       </div>
     </section>
 
-    <section class="section cta">
-      <div class="cta-card" data-reveal>
-        <p class="section-sub" data-reveal>Become part of a thriving community of AI enthusiasts, researchers, and innovators.</p>
+    <section class="join-cta" data-reveal>
+      <div class="cta-card">
+        <p class="eyebrow soft-eye" data-reveal>Ready?</p>
+        <h2 data-reveal>Start with Discord — we’ll guide you from there.</h2>
         <div class="actions center" data-reveal>
-          <button class="btn primary breath">Join Our Discord</button>
-          <button class="btn secondary">Get Updates</button>
+          <a class="btn primary breath" href="https://discord.com" target="_blank" rel="noreferrer">Join Our Discord</a>
+          <a class="btn secondary" href="events.html">View Events</a>
         </div>
       </div>
     </section>

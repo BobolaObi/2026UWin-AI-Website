@@ -659,6 +659,81 @@ pre{
 .leaders-page header nav a,
 .leaders-page .brand{color:#0e1b2a;}
 .leaders-page nav a::after{background-color:currentColor;}
+
+/* Join page */
+.sr-only{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+.join-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+  margin-top:18px;
+}
+.join-card{
+  background:#ffffff;
+  border:1px solid rgba(14,27,42,.1);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 16px 34px rgba(0,0,0,.08);
+}
+.join-card h2{
+  margin:10px 0 6px;
+  font-size:20px;
+  letter-spacing:-.01em;
+}
+.join-card p{
+  margin:0 0 12px;
+  color:#394867;
+}
+.join-badge{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:var(--blue);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+}
+.join-link{
+  color:var(--blue);
+  font-weight:800;
+  text-decoration:none;
+}
+.join-form{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+.join-form input{
+  flex:1 1 220px;
+  min-width:200px;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid rgba(14,27,42,.16);
+  font-size:14px;
+  outline:none;
+}
+.join-form input:focus{
+  border-color:rgba(0,85,150,.6);
+  box-shadow:0 0 0 4px rgba(0,85,150,.12);
+}
+.join-cta{margin-top:22px;}
+.join-page .cta-card{
+  background:var(--navy);
+}
+.join-page .cta-card h2{color:#f8fafc;}
+.join-page .cta-card .eyebrow{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:#f8fafc;}
 .card-band > *{
   position:relative;
   z-index:1;
