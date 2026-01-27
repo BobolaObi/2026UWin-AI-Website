@@ -12,8 +12,8 @@
   <div class="shell">
     <header data-reveal>
       <a class="brand" title="Windsor AI Club Logo" href="index.html" data-reveal>
-        <img class="uw-logo" src="university-of-windsor-logo-vector.svg" alt="University of Windsor logo">
-        <span class="sr-only">Windsor AI Club</span>
+        <div class="logo" aria-hidden="true">AI</div>
+        <span class="brand-text">Windsor AI Club</span>
       </a>
       <nav>
         <a href="events.html" title="View our upcoming events">Events</a>
@@ -79,13 +79,17 @@
     ];
 
     const strip = document.getElementById('eventStrip');
-    const latestSeven = events.slice(-7);
+    const latestFive = events.slice(-5);
+    const centerIndex = (latestFive.length - 1) / 2;
 
-    latestSeven.forEach((event, index) => {
+    latestFive.forEach((event, index) => {
       const card = document.createElement('div');
       card.className = 'event-card';
-      card.style.setProperty('--card-rotation', `${(index - 3) * 3}deg`);
+      const rotation = (index - centerIndex) * 4;
+      const z = Math.round(10 - Math.abs(index - centerIndex));
+      card.style.setProperty('--card-rotation', `${rotation}deg`);
       card.style.setProperty('--float-delay', `${index * 0.35}s`);
+      card.style.setProperty('--z', `${z}`);
       card.style.backgroundImage = `url(${event.image})`;
 
       const overlay = document.createElement('div');
