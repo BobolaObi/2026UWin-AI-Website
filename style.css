@@ -20,6 +20,35 @@ body{
   min-height:100vh;
 }
 
+/* Homepage soft glow (no gradients) */
+body.home-page{
+  position:relative;
+}
+body.home-page::before,
+body.home-page::after{
+  content:'';
+  position:fixed;
+  pointer-events:none;
+  z-index:-1;
+  border-radius:999px;
+  filter:blur(90px);
+  opacity:.9;
+}
+body.home-page::before{
+  width:560px;
+  height:560px;
+  left:-220px;
+  top:120px;
+  background:rgba(0,85,150,.14);
+}
+body.home-page::after{
+  width:420px;
+  height:420px;
+  right:-180px;
+  top:40px;
+  background:rgba(0,85,150,.10);
+}
+
 .shell{
   max-width:1180px;
   margin:0 auto;
@@ -35,9 +64,9 @@ header{
   position:sticky;
   top:0;
   padding:10px 0;
-  background:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.86);
   backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(14,27,42,.08);
+  border-bottom:1px solid rgba(14,27,42,.06);
   z-index:2;
 }
 .brand{
@@ -50,6 +79,7 @@ header{
   text-decoration:none;
 }
 .brand:visited{color:#0f1d35;}
+.brand:hover{opacity:.9;}
 .logo{
   width:38px;height:38px;border-radius:12px;
   background:var(--blue);
@@ -57,7 +87,7 @@ header{
   display:grid;place-items:center;color:#fff;font-size:14px;
   box-shadow:0 14px 32px rgba(0,0,0,.16);
 }
-.uw-logo{height:40px;width:auto;display:block;}
+.uw-logo{height:34px;width:auto;display:block;}
 nav a{
   margin-left:22px;
   text-decoration:none;
@@ -65,6 +95,9 @@ nav a{
   font-weight:600;
   position: relative;
   font-size:15px;
+  padding:8px 10px;
+  border-radius:12px;
+  transition:background-color .18s ease, color .18s ease;
 }
 nav a::after {
   content:'';
@@ -73,13 +106,22 @@ nav a::after {
   height:3px;
   border-radius:999px;
   background-color: var(--gold);
-  bottom:-5px;
+  bottom:3px;
   left:0;
   transform: scaleX(0);
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
-nav a:hover::after {transform: scaleX(1);transform-origin: bottom left;}
+nav a:hover{background:rgba(0,85,150,.06);}
+nav a:hover::after {transform: scaleX(.38);transform-origin: bottom left;}
+
+header nav a.active{
+  background:rgba(0,85,150,.08);
+}
+header nav a.active::after{
+  transform: scaleX(.38);
+  transform-origin: bottom left;
+}
 
 .hero{
   display:flex;
@@ -194,6 +236,36 @@ nav a:hover::after {transform: scaleX(1);transform-origin: bottom left;}
   opacity:0;
   animation:fadeIn .9s ease .2s forwards;
   z-index:2;
+}
+
+.card-band{
+  position:relative;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  padding:8px 0 0;
+  overflow:visible;
+}
+.card-band::before{
+  content:'';
+  position:absolute;
+  left:-12vw;
+  right:-12vw;
+  top:118px; /* start band mid-cards */
+  height:320px;
+  background:var(--navy);
+  border-radius:52px 52px 0 0;
+  z-index:0;
+}
+.card-band::after{
+  content:'';
+  position:absolute;
+  left:-12vw;
+  right:-12vw;
+  top:104px;
+  height:14px;
+  background:var(--gold);
+  z-index:1;
 }
 
 .floating-label{
@@ -417,17 +489,32 @@ pre{
 .actions.center{justify-content:center;flex-wrap:wrap;}
 
 .footer{
-  margin-top:80px;
-  border-top:1px solid rgba(0,85,150,.14);
-  background:rgba(14,27,42,.04);
+  position:relative;
+  min-height:28vh;
+  background:var(--navy);
+  border-top:none;
+  overflow:hidden;
+}
+.footer::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:14px;
+  background:var(--gold);
 }
 .footer-inner{
   max-width:1180px;
   margin:0 auto;
-  padding:26px 24px 32px;
+  padding:34px 24px 26px;
   display:flex;
   flex-direction:column;
   gap:12px;
+}
+.footer .brand{
+  color:#fff;
+  text-decoration:none;
 }
 .footer-links{
   display:flex;
@@ -435,11 +522,12 @@ pre{
   gap:12px 16px;
 }
 .footer a{
-  color:var(--text);
+  color:rgba(255,255,255,.92);
   text-decoration:none;
   font-weight:600;
 }
-.footer-meta{color:var(--muted);}
+.footer a:hover{text-decoration:underline;}
+.footer-meta{color:rgba(255,255,255,.78);}
 
 .events-page{
   background:#f4f7fb;
@@ -543,14 +631,7 @@ pre{
   border-radius:999px;
   box-shadow:0 10px 24px rgba(0,0,0,.08);
 }
-.events-page .footer{
-  background:#eef3f9;
-  border-top:1px solid rgba(14,27,42,.1);
-}
-.events-page .footer a,
-.events-page .footer-meta,
-.events-page .brand{color:#0e1b2a;}
-.events-page .footer-inner{padding:22px 24px 30px;}
+/* Footer is global; avoid per-page overrides */
 
 @media(max-width:900px){
   .events-hero-content h1{font-size:52px;}
@@ -736,7 +817,7 @@ pre{
 .join-page .cta-card .eyebrow{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:#f8fafc;}
 .card-band > *{
   position:relative;
-  z-index:1;
+  z-index:2;
 }
 
 @keyframes float{
@@ -812,4 +893,9 @@ pre{
   .btn{width:100%;text-align:center;}
   .event-card{width:130px;height:180px;}
   .hero{gap:16px;}
+}
+
+@media(max-width:720px){
+  .card-band::before{top:96px;height:300px;border-radius:40px 40px 0 0;}
+  .card-band::after{top:84px;}
 }
