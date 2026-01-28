@@ -134,8 +134,13 @@
     const heroVisual = document.getElementById('heroVisual');
     const joinBtn = document.getElementById('joinBtn');
     let pinnedUntilMs = 0;
+    let hideTimer = null;
 
     const showTags = (pin = false) => {
+      if (hideTimer) {
+        clearTimeout(hideTimer);
+        hideTimer = null;
+      }
       heroVisual.classList.add('show-tags');
       if (pin) pinnedUntilMs = Date.now() + 8000;
     };
@@ -144,11 +149,17 @@
       pinnedUntilMs = 0;
     };
     const isPinned = () => pinnedUntilMs && Date.now() < pinnedUntilMs;
+    const scheduleHide = () => {
+      if (hideTimer) clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => {
+        if (!isPinned()) hideTags();
+      }, 900);
+    };
 
     joinBtn.addEventListener('mouseenter', () => showTags(false));
     joinBtn.addEventListener('focus', () => showTags(false));
-    joinBtn.addEventListener('mouseleave', () => { if (!isPinned()) hideTags(); });
-    joinBtn.addEventListener('blur', () => { if (!isPinned()) hideTags(); });
+    joinBtn.addEventListener('mouseleave', scheduleHide);
+    joinBtn.addEventListener('blur', scheduleHide);
 
     joinBtn.addEventListener('click', (e) => {
       if (!heroVisual.classList.contains('show-tags')) {

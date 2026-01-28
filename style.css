@@ -207,6 +207,10 @@ header nav a.active::after{
   cursor:pointer;
   font-size:15px;
   transition:transform .18s ease, box-shadow .18s ease, background .2s ease;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 }
 .btn:hover{transform:translateY(-2px);}
 .primary{
@@ -291,18 +295,19 @@ header nav a.active::after{
 
 .floating-label{
   position:absolute;
-  top:-18px;
-  left:24px;
+  top:12px;
+  left:18px;
   padding:10px 16px;
   border-radius:999px;
   background:#fff;
   border:1px solid #dce0e8;
   font-weight:700;
   box-shadow:var(--card-shadow);
+  z-index:6;
 }
 .floating-label.right{
   top:unset;
-  bottom:-12px;
+  bottom:14px;
   right:12px;
   left:auto;
 }
