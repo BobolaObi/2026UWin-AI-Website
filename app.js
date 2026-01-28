@@ -4,10 +4,14 @@
 
   const onReady = () => {
     // Stagger any reveal-marked elements.
+    const isLeadersPage = document.body.classList.contains('leaders-page');
     const revealNodes = Array.from(document.querySelectorAll('[data-reveal]'));
+    const delayStepMs = isLeadersPage ? 35 : 70;
+    const maxDelayMs = isLeadersPage ? 500 : 1400;
     revealNodes.forEach((node, index) => {
       if (!node.style.getPropertyValue('--delay')) {
-        node.style.setProperty('--delay', `${index * 70}ms`);
+        const delay = Math.min(index * delayStepMs, maxDelayMs);
+        node.style.setProperty('--delay', `${delay}ms`);
       }
     });
 
@@ -23,4 +27,3 @@
     onReady();
   }
 })();
-
