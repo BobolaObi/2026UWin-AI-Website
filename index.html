@@ -87,7 +87,7 @@
       card.style.setProperty('--card-rotation', `${rotation}deg`);
       card.style.setProperty('--float-delay', `${index * 0.35}s`);
       card.style.setProperty('--z', `${z}`);
-      card.style.backgroundImage = `url(${event.image})`;
+      card.style.backgroundImage = `url("${encodeURI(event.image)}")`;
 
       const overlay = document.createElement('div');
       overlay.className = 'event-overlay';
