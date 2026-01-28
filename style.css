@@ -306,9 +306,8 @@ header nav a.active::after{
   z-index:6;
 }
 .floating-label.right{
-  top:unset;
-  bottom:14px;
-  right:12px;
+  top:12px;
+  right:18px;
   left:auto;
 }
 .floating-label.pop-tag{
