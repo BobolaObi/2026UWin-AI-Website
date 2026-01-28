@@ -306,6 +306,24 @@ header nav a.active::after{
   right:12px;
   left:auto;
 }
+.floating-label.pop-tag{
+  --sx:-240px;
+  --sy:-160px;
+  --sr:-8deg;
+  pointer-events:none;
+  opacity:0;
+  transform:translate(var(--sx), var(--sy)) scale(.75) rotate(var(--sr));
+  transition:transform .45s cubic-bezier(.2,.9,.2,1), opacity .25s ease;
+}
+.floating-label.pop-tag.right{
+  --sx:240px;
+  --sy:160px;
+  --sr:8deg;
+}
+.hero-visual.show-tags .floating-label.pop-tag{
+  opacity:1;
+  transform:translate(0,0) scale(1) rotate(0deg);
+}
 
 .event-strip{
   display:flex;
@@ -326,7 +344,9 @@ header nav a.active::after{
   overflow:hidden;
   isolation:isolate;
   z-index:var(--z, 1);
-  transform:rotate(var(--card-rotation)) translateY(0);
+  --card-scale: 1;
+  --card-lift: 0px;
+  transform:rotate(var(--card-rotation)) translateY(var(--card-lift)) scale(var(--card-scale));
   animation:
     fadeIn .75s ease forwards,
     float 9s ease-in-out infinite;
@@ -339,16 +359,19 @@ header nav a.active::after{
   position:absolute;
   inset:0;
   background:rgba(0,0,0,.55);
-  opacity:.6;
+  opacity:.14;
   transition:opacity .3s ease;
 }
-.event-card:hover{
-  transform:rotate(var(--card-rotation)) translateY(-16px) scale(1.03);
+.event-strip.is-active .event-card{--card-scale:.98;}
+.event-card.is-near{--card-scale:1.06;--card-lift:-10px;z-index:50;}
+.event-card.is-hovered{
+  --card-scale:1.16;
+  --card-lift:-24px;
   box-shadow:0 30px 60px rgba(0,0,0,.16);
   z-index:99;
   animation-play-state:paused;
 }
-.event-card:hover::before{opacity:1;}
+.event-card.is-hovered::before{opacity:.65;}
 .event-overlay{
   position:absolute;
   inset:0;
@@ -358,14 +381,11 @@ header nav a.active::after{
   padding:16px;
   color:#fff;
   gap:10px;
-  opacity:0;
-  transform:translateY(12px);
-  transition:opacity .22s ease, transform .22s ease;
-}
-.event-card:hover .event-overlay{
   opacity:1;
   transform:translateY(0);
+  transition:transform .22s ease;
 }
+.event-card.is-hovered .event-overlay{transform:translateY(-2px);}
 .event-meta p{
   margin:0;
   font-weight:800;
@@ -374,6 +394,10 @@ header nav a.active::after{
 .event-meta span{
   font-size:13px;
   color:rgba(255,255,255,.82);
+}
+.event-meta{
+  opacity:.95;
+  transform:translateY(0);
 }
 .bubble{
   background:rgba(255,255,255,.9);
@@ -901,9 +925,9 @@ pre{
 }
 
 @keyframes float{
-  0%{transform:rotate(var(--card-rotation)) translateY(0);}
-  50%{transform:rotate(var(--card-rotation)) translateY(-10px);}
-  100%{transform:rotate(var(--card-rotation)) translateY(0);}
+  0%{transform:rotate(var(--card-rotation)) translateY(var(--card-lift)) scale(var(--card-scale));}
+  50%{transform:rotate(var(--card-rotation)) translateY(calc(var(--card-lift) - 10px)) scale(var(--card-scale));}
+  100%{transform:rotate(var(--card-rotation)) translateY(var(--card-lift)) scale(var(--card-scale));}
 }
 @keyframes riseFade{
   from{opacity:0;transform:translateY(26px);}
@@ -969,7 +993,7 @@ pre{
   .actions{justify-content:flex-start;flex-wrap:wrap;}
   .event-strip{gap:12px;flex-wrap:wrap;justify-content:flex-start;}
   .event-card{width:150px;height:210px;margin-left:0;transform:none;}
-  .floating-label{display:none;}
+  .floating-label:not(.pop-tag){display:none;}
 }
 
 @media(max-width:540px){

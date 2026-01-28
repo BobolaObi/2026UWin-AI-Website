@@ -29,8 +29,8 @@
           <p class="sub" data-reveal>A student-led AI community at the University of Windsor. Join our community of over 500 AI enthusiasts and practitioners — we explore cutting-edge technologies, share knowledge, and build the future together.</p>
 
           <div class="actions" data-reveal>
-            <button class="btn primary breath">Join the Club</button>
-            <button class="btn secondary">View Events</button>
+            <a class="btn primary breath" id="joinBtn" href="join.html">Join the Club</a>
+            <a class="btn secondary" href="events.html">View Events</a>
           </div>
 
           <div class="meta" data-reveal>
@@ -40,12 +40,12 @@
           </div>
         </div>
 
-        <div class="hero-visual" data-reveal>
-          <div class="floating-label">@windsor.ai</div>
+        <div class="hero-visual" id="heroVisual" data-reveal>
+          <div class="floating-label pop-tag">@uwindsor.ai.club</div>
           <div class="card-band">
             <div class="event-strip" id="eventStrip" aria-label="Latest event highlights"></div>
           </div>
-          <div class="floating-label right">@uwindsorCS</div>
+          <div class="floating-label pop-tag right">LinkedIn · uwindsor-ai-club</div>
         </div>
       </div>
     </section>
@@ -78,6 +78,7 @@
     const strip = document.getElementById('eventStrip');
     const latestFive = events.slice(-5);
     const centerIndex = (latestFive.length - 1) / 2;
+    const cards = [];
 
     latestFive.forEach((event, index) => {
       const card = document.createElement('div');
@@ -104,6 +105,71 @@
       overlay.appendChild(meta);
       card.appendChild(overlay);
       strip.appendChild(card);
+      cards.push(card);
+    });
+
+    const setDockHover = (activeIndex) => {
+      strip.classList.add('is-active');
+      cards.forEach((card, i) => {
+        card.classList.toggle('is-hovered', i === activeIndex);
+        card.classList.toggle('is-near', Math.abs(i - activeIndex) === 1);
+      });
+    };
+
+    const clearDockHover = () => {
+      strip.classList.remove('is-active');
+      cards.forEach((card) => {
+        card.classList.remove('is-hovered', 'is-near');
+      });
+    };
+
+    cards.forEach((card, index) => {
+      card.addEventListener('mouseenter', () => setDockHover(index));
+      card.addEventListener('focus', () => setDockHover(index));
+      card.addEventListener('mouseleave', clearDockHover);
+      card.addEventListener('blur', clearDockHover);
+    });
+    strip.addEventListener('mouseleave', clearDockHover);
+
+    const heroVisual = document.getElementById('heroVisual');
+    const joinBtn = document.getElementById('joinBtn');
+    let pinnedUntilMs = 0;
+
+    const showTags = (pin = false) => {
+      heroVisual.classList.add('show-tags');
+      if (pin) pinnedUntilMs = Date.now() + 8000;
+    };
+    const hideTags = () => {
+      heroVisual.classList.remove('show-tags');
+      pinnedUntilMs = 0;
+    };
+    const isPinned = () => pinnedUntilMs && Date.now() < pinnedUntilMs;
+
+    joinBtn.addEventListener('mouseenter', () => showTags(false));
+    joinBtn.addEventListener('focus', () => showTags(false));
+    joinBtn.addEventListener('mouseleave', () => { if (!isPinned()) hideTags(); });
+    joinBtn.addEventListener('blur', () => { if (!isPinned()) hideTags(); });
+
+    joinBtn.addEventListener('click', (e) => {
+      if (!heroVisual.classList.contains('show-tags')) {
+        e.preventDefault();
+        showTags(true);
+      } else if (!isPinned()) {
+        e.preventDefault();
+        showTags(true);
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!heroVisual.classList.contains('show-tags')) return;
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+      if (heroVisual.contains(target) || joinBtn.contains(target)) return;
+      hideTags();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hideTags();
     });
   </script>
 </body>
