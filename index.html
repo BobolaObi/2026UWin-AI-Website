@@ -144,30 +144,32 @@
     });
     strip.addEventListener('mouseleave', clearDockHover);
 
-    const heroVisual = document.getElementById('heroVisual');
-    const joinBtn = document.getElementById('joinBtn');
-    let pinnedUntilMs = 0;
-    let hideTimer = null;
+	    const heroVisual = document.getElementById('heroVisual');
+	    const joinBtn = document.getElementById('joinBtn');
+	    const PIN_DURATION_MS = 60000;
+	    const HIDE_DELAY_MS = 60000;
+	    let pinnedUntilMs = 0;
+	    let hideTimer = null;
 
     const showTags = (pin = false) => {
       if (hideTimer) {
         clearTimeout(hideTimer);
         hideTimer = null;
-      }
-      heroVisual.classList.add('show-tags');
-      if (pin) pinnedUntilMs = Date.now() + 8000;
-    };
+	      }
+	      heroVisual.classList.add('show-tags');
+	      if (pin) pinnedUntilMs = Date.now() + PIN_DURATION_MS;
+	    };
     const hideTags = () => {
       heroVisual.classList.remove('show-tags');
       pinnedUntilMs = 0;
     };
     const isPinned = () => pinnedUntilMs && Date.now() < pinnedUntilMs;
-    const scheduleHide = () => {
-      if (hideTimer) clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => {
-        if (!isPinned()) hideTags();
-      }, 900);
-    };
+	    const scheduleHide = () => {
+	      if (hideTimer) clearTimeout(hideTimer);
+	      hideTimer = setTimeout(() => {
+	        if (!isPinned()) hideTags();
+	      }, HIDE_DELAY_MS);
+	    };
 
     joinBtn.addEventListener('mouseenter', () => showTags(false));
     joinBtn.addEventListener('focus', () => showTags(false));
