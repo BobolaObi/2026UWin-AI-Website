@@ -304,6 +304,8 @@ header nav a.active::after{
   font-weight:700;
   box-shadow:var(--card-shadow);
   z-index:6;
+  text-decoration:none;
+  color:inherit;
 }
 .floating-label.right{
   top:12px;
@@ -327,6 +329,8 @@ header nav a.active::after{
 .hero-visual.show-tags .floating-label.pop-tag{
   opacity:1;
   transform:translate(0,0) scale(1) rotate(0deg);
+  pointer-events:auto;
+  cursor:pointer;
 }
 
 .event-strip{
