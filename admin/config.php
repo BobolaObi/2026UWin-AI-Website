@@ -2,14 +2,19 @@
 
 declare(strict_types=1);
 
-// Hostinger: upload this repo to public_html. This folder is your admin area.
-// 1) Generate a password hash locally:
-//    php -r 'echo password_hash("REPLACE_WITH_YOUR_PASSWORD", PASSWORD_DEFAULT), PHP_EOL;'
-// 2) Paste the hash into ADMIN_PASSWORD_HASH below.
-//
-// Never store the plain password in this repo.
+// Hostinger setup:
+// - Put DB credentials in admin/config.local.php (this file is gitignored).
+// - Create tables using admin/schema.sql in phpMyAdmin.
+// - Add admin users by inserting into admin_users (password_hash via password_hash()).
 
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD_HASH = 'CHANGE_ME';
 const SESSION_NAME = 'ai_club_admin';
 
+const DB_HOST = 'CHANGE_ME';
+const DB_NAME = 'CHANGE_ME';
+const DB_USER = 'CHANGE_ME';
+const DB_PASSWORD = 'CHANGE_ME';
+const DB_CHARSET = 'utf8mb4';
+
+if (file_exists(__DIR__ . '/config.local.php')) {
+    require_once __DIR__ . '/config.local.php';
+}

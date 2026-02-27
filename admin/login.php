@@ -8,16 +8,23 @@ start_admin_session();
 
 $error = '';
 
+if (is_admin_logged_in()) {
+    header('Location: /admin/index.php', true, 302);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = isset($_POST['username']) ? trim((string) $_POST['username']) : '';
     $password = isset($_POST['password']) ? (string) $_POST['password'] : '';
 
-    $is_valid_user = hash_equals(ADMIN_USERNAME, $username);
-    $is_valid_password = $is_valid_user && password_verify($password, ADMIN_PASSWORD_HASH);
+    $row = ($username !== '') ? find_admin_user_by_username($username) : null;
+    $is_valid_password = is_array($row)
+        && isset($row['id'], $row['username'], $row['password_hash'])
+        && is_string($row['password_hash'])
+        && password_verify($password, $row['password_hash']);
 
     if ($is_valid_password) {
-        session_regenerate_id(true);
-        $_SESSION['admin_logged_in'] = true;
+        complete_admin_login((int) $row['id'], (string) $row['username']);
         header('Location: /admin/index.php', true, 302);
         exit;
     }
@@ -77,4 +84,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </body>
 </html>
-

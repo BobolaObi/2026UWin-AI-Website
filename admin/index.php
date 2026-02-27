@@ -6,6 +6,8 @@ require_once __DIR__ . '/auth.php';
 
 require_admin_login();
 
+$username = current_admin_username();
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -37,11 +39,11 @@ require_admin_login();
           </div>
         </div>
         <p class="admin-note">
-          Auth is enabled. Next step: wire your form submissions into a database + build an editor here.
+          Logged in as <code><?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?></code>.
+          Next step: wire your form submissions into a database + build an editor here.
           Tell me what fields you want, and whether you want to edit “submissions” or the “form questions”.
         </p>
       </div>
     </div>
   </body>
 </html>
-
