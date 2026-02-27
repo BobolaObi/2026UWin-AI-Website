@@ -18,6 +18,8 @@ body{
   color:var(--text);
   text-rendering: optimizeLegibility;
   min-height:100vh;
+  display:flex;
+  flex-direction:column;
 }
 
 /* Homepage soft glow (no gradients) */
@@ -551,6 +553,7 @@ pre{
   background:var(--navy);
   border-top:none;
   overflow:hidden;
+  margin-top:auto;
 }
 .footer::before{
   content:'';
