@@ -6,8 +6,8 @@
     // Stagger any reveal-marked elements.
     const isLeadersPage = document.body.classList.contains('leaders-page');
     const revealNodes = Array.from(document.querySelectorAll('[data-reveal]'));
-    const delayStepMs = isLeadersPage ? 35 : 70;
-    const maxDelayMs = isLeadersPage ? 500 : 1400;
+    const delayStepMs = isLeadersPage ? 20 : 70;
+    const maxDelayMs = isLeadersPage ? 250 : 1400;
     revealNodes.forEach((node, index) => {
       if (!node.style.getPropertyValue('--delay')) {
         const delay = Math.min(index * delayStepMs, maxDelayMs);

@@ -1497,6 +1497,9 @@ pre{
   animation:riseFade .7s ease forwards;
   animation-delay:var(--delay, 0ms);
 }
+.leaders-page.page-enter [data-reveal]{
+  animation-duration:.5s;
+}
 
 /* Subtle "alive" motion (opt-in via .breath) */
 .breath{
