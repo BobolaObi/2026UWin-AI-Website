@@ -811,6 +811,16 @@ pre{
   flex-direction:column;
   gap:12px;
 }
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(12, minmax(0, 1fr));
+  gap:12px;
+}
+.form-span-12{grid-column:span 12;}
+.form-span-6{grid-column:span 6;}
+@media(max-width:900px){
+  .form-span-6{grid-column:span 12;}
+}
 .auth-label{
   font-weight:var(--fw-bold);
   letter-spacing:-.01em;
