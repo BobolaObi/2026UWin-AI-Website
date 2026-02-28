@@ -136,6 +136,48 @@ header nav a.active::after{
   transform-origin: bottom left;
 }
 
+.nav-auth{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.nav-auth-link{
+  text-decoration:none;
+  color:#0f1d35;
+  font-weight:800;
+  font-size:14px;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(0,85,150,.06);
+  border:1px solid rgba(0,85,150,.18);
+}
+.nav-auth-link:hover{
+  background:rgba(0,85,150,.10);
+}
+.nav-role-pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  border:1px solid rgba(14,27,42,.16);
+  background:#ffffff;
+  color:#0e1b2a;
+}
+.nav-role-admin,
+.nav-role-super_admin{
+  border-color:rgba(255,206,0,.95);
+  background:rgba(255,206,0,.14);
+}
+.nav-role-editor{
+  border-color:rgba(0,85,150,.25);
+  background:rgba(0,85,150,.08);
+}
+
 .hero{
   display:flex;
   flex-direction:column;
