@@ -839,6 +839,29 @@ pre{
   width:min(680px, 100%);
   margin:0 auto;
 }
+.panel-kicker{
+  color:#005596;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:12px;
+  margin-bottom:10px;
+}
+.panel-list{
+  margin:0 0 14px;
+  padding-left:18px;
+  color:#394867;
+  font-weight:600;
+  line-height:1.6;
+}
+.panel-list a{
+  color:var(--blue);
+  text-decoration:none;
+  font-weight:800;
+}
+.panel-list a:hover{
+  text-decoration:underline;
+}
 .panel-actions{
   display:flex;
   gap:10px;

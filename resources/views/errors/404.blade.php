@@ -16,6 +16,13 @@
 
     <div class="events-shell">
         <div class="panel-card" data-reveal>
+            <div class="panel-kicker">Popular links</div>
+            <ul class="panel-list">
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li><a href="{{ route('events') }}">Events</a></li>
+                <li><a href="{{ route('leaders') }}">Leaders</a></li>
+                <li><a href="{{ route('join') }}">Join</a></li>
+            </ul>
             <div class="panel-actions">
                 <a class="btn primary breath" href="{{ route('home') }}">Home</a>
                 <a class="btn secondary" href="{{ route('events') }}">Events</a>
@@ -26,4 +33,3 @@
 
     @include('partials.site.footer', ['footer_class' => 'dark-footer'])
 @endsection
-

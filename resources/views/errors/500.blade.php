@@ -16,13 +16,19 @@
 
     <div class="events-shell">
         <div class="panel-card" data-reveal>
+            <div class="panel-kicker">Quick checks</div>
+            <ul class="panel-list">
+                <li>Refresh the page</li>
+                <li>Try again in a minute</li>
+                <li>If it keeps happening, contact the club admin</li>
+            </ul>
             <div class="panel-actions">
                 <a class="btn primary breath" href="{{ route('home') }}">Home</a>
                 <a class="btn secondary" href="{{ route('events') }}">Events</a>
+                <a class="btn secondary" href="{{ route('login') }}">Log in</a>
             </div>
         </div>
     </div>
 
     @include('partials.site.footer', ['footer_class' => 'dark-footer'])
 @endsection
-
