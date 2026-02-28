@@ -16,7 +16,7 @@
 
     <div class="events-shell">
         <div class="portal-grid" data-reveal>
-            <div class="portal-tile portal-tile-form" style="grid-column: span 6;">
+            <div class="portal-tile portal-tile-form" style="grid-column: span 12;">
                 <div class="portal-kicker">Profile</div>
                 <div class="portal-title">Info</div>
                 <div class="portal-desc">Name and email address.</div>
@@ -66,18 +66,13 @@
                     <textarea id="bio" class="auth-input" name="bio" rows="5" style="resize:vertical;">{{ old('bio', $user->bio) }}</textarea>
                     @error('bio') <div class="auth-error">{{ $message }}</div> @enderror
 
-                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:12px;">
-                        <div>
-                            <label class="auth-label" for="linkedin_url">LinkedIn URL (optional)</label>
-                            <input id="linkedin_url" class="auth-input" name="linkedin_url" type="url" value="{{ old('linkedin_url', $user->linkedin_url) }}" placeholder="https://linkedin.com/in/..." />
-                            @error('linkedin_url') <div class="auth-error">{{ $message }}</div> @enderror
-                        </div>
-                        <div>
-                            <label class="auth-label" for="github_url">GitHub URL (optional)</label>
-                            <input id="github_url" class="auth-input" name="github_url" type="url" value="{{ old('github_url', $user->github_url) }}" placeholder="https://github.com/..." />
-                            @error('github_url') <div class="auth-error">{{ $message }}</div> @enderror
-                        </div>
-                    </div>
+                    <label class="auth-label" for="linkedin_url">LinkedIn URL (optional)</label>
+                    <input id="linkedin_url" class="auth-input" name="linkedin_url" type="url" value="{{ old('linkedin_url', $user->linkedin_url) }}" placeholder="https://linkedin.com/in/..." />
+                    @error('linkedin_url') <div class="auth-error">{{ $message }}</div> @enderror
+
+                    <label class="auth-label" for="github_url">GitHub URL (optional)</label>
+                    <input id="github_url" class="auth-input" name="github_url" type="url" value="{{ old('github_url', $user->github_url) }}" placeholder="https://github.com/..." />
+                    @error('github_url') <div class="auth-error">{{ $message }}</div> @enderror
 
                     <div class="auth-actions">
                         <button class="btn primary breath" type="submit">{{ __('Save') }}</button>
@@ -86,7 +81,7 @@
                 </form>
             </div>
 
-            <div class="portal-tile portal-tile-form" style="grid-column: span 6;">
+            <div class="portal-tile portal-tile-form" style="grid-column: span 12;">
                 <div class="portal-kicker">Security</div>
                 <div class="portal-title">Password</div>
                 <div class="portal-desc">Use a long, random password.</div>
