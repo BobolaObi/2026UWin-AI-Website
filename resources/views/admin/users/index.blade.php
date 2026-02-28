@@ -19,12 +19,19 @@
                 <div class="auth-status">{{ session('status') }}</div>
             @endif
 
-            <div class="panel-kicker">Rules</div>
-            <ul class="panel-list">
-                <li><strong>Super Admin:</strong> exactly one; can assign any role.</li>
-                <li><strong>Admin:</strong> can assign Editor roles.</li>
-                <li><strong>Editor:</strong> can manage events.</li>
-            </ul>
+            @if ($is_actor_super_admin)
+                <div class="panel-kicker">Rules</div>
+                <ul class="panel-list">
+                    <li><strong>Owner:</strong> exactly one; can assign any role.</li>
+                    <li><strong>Admin:</strong> can assign Editor roles.</li>
+                    <li><strong>Editor:</strong> can manage events.</li>
+                </ul>
+            @else
+                <div class="panel-kicker">Note</div>
+                <p class="sub" style="margin:0;">
+                    You can assign <strong>editor</strong> access. Protected accounts can’t be changed here.
+                </p>
+            @endif
 
             <div class="admin-table">
                 <div class="admin-row admin-head">
@@ -37,12 +44,16 @@
                 @foreach ($users as $user)
                     @php
                         $is_super = $current_super_admin_id === $user->id || $user->role === \App\Models\User::ROLE_SUPER_ADMIN;
-                        $role = $is_super ? \App\Models\User::ROLE_SUPER_ADMIN : ($user->role ?: \App\Models\User::ROLE_MEMBER);
+                        $raw_role = $is_super ? \App\Models\User::ROLE_SUPER_ADMIN : ($user->role ?: \App\Models\User::ROLE_MEMBER);
+                        $role = (! $is_actor_super_admin && $raw_role === \App\Models\User::ROLE_SUPER_ADMIN)
+                            ? \App\Models\User::ROLE_ADMIN
+                            : $raw_role;
+                        $is_protected = ! $is_actor_super_admin && in_array($raw_role, [\App\Models\User::ROLE_ADMIN, \App\Models\User::ROLE_SUPER_ADMIN], true);
                     @endphp
                     <div class="admin-row">
                         <div class="admin-title">
                             {{ $user->name }}
-                            @if ($is_super)
+                            @if ($is_actor_super_admin && $is_super)
                                 <span class="badge badge-live" style="margin-left:10px;">Owner</span>
                             @endif
                         </div>
@@ -54,13 +65,17 @@
                             <form method="POST" action="{{ route('admin.users.role', $user) }}">
                                 @csrf
                                 @method('PATCH')
-                                <select class="auth-input" name="role" style="padding:10px 12px; width: 180px;">
+                                <select class="auth-input" name="role" style="padding:10px 12px; width: 180px;" {{ $is_protected ? 'disabled' : '' }}>
                                     <option value="member" {{ $role === 'member' ? 'selected' : '' }}>member</option>
                                     <option value="editor" {{ $role === 'editor' ? 'selected' : '' }}>editor</option>
-                                    <option value="admin" {{ $role === 'admin' ? 'selected' : '' }}>admin</option>
-                                    <option value="super_admin" {{ $role === 'super_admin' ? 'selected' : '' }}>super_admin</option>
+                                    @if ($is_actor_super_admin)
+                                        <option value="admin" {{ $role === 'admin' ? 'selected' : '' }}>admin</option>
+                                        <option value="super_admin" {{ $role === 'super_admin' ? 'selected' : '' }}>owner</option>
+                                    @endif
                                 </select>
-                                <button class="btn secondary" type="submit">Update</button>
+                                @if (! $is_protected)
+                                    <button class="btn secondary" type="submit">Update</button>
+                                @endif
                             </form>
                         </div>
                     </div>

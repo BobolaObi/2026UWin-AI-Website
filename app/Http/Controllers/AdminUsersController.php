@@ -14,6 +14,11 @@ class AdminUsersController extends Controller
 {
     public function index(Request $request, SuperAdminService $super_admin_service): View
     {
+        /** @var \App\Models\User $actor */
+        $actor = $request->user();
+        $current_super_admin_id = $super_admin_service->current_user_id();
+        $is_actor_super_admin = $actor->is_super_admin() || $current_super_admin_id === $actor->id;
+
         $users = User::query()
             ->orderByDesc('created_at')
             ->limit(250)
@@ -21,7 +26,8 @@ class AdminUsersController extends Controller
 
         return view('admin.users.index', [
             'users' => $users,
-            'current_super_admin_id' => $super_admin_service->current_user_id(),
+            'current_super_admin_id' => $current_super_admin_id,
+            'is_actor_super_admin' => $is_actor_super_admin,
         ]);
     }
 

@@ -83,24 +83,30 @@
                 <details style="margin-top: 14px;">
                     <summary class="auth-label" style="cursor:pointer;">Danger zone (delete account)</summary>
                     <div style="margin-top: 10px;">
-                        <p class="portal-desc" style="margin:0 0 12px;">
-                            This permanently deletes your account. This action cannot be undone.
-                        </p>
+                        @if (! $can_delete_account)
+                            <p class="portal-desc" style="margin:0;">
+                                You are the current <strong>super admin</strong>. Transfer ownership in <a href="{{ route('admin.users.index') }}">Admin · Users</a> before deleting this account.
+                            </p>
+                        @else
+                            <p class="portal-desc" style="margin:0 0 12px;">
+                                This permanently deletes your account. This action cannot be undone.
+                            </p>
 
-                        <form class="auth-form" method="POST" action="{{ route('profile.destroy') }}" onsubmit="return confirm('Delete your account permanently?');">
-                            @csrf
-                            @method('DELETE')
+                            <form class="auth-form" method="POST" action="{{ route('profile.destroy') }}" onsubmit="return confirm('Delete your account permanently?');">
+                                @csrf
+                                @method('DELETE')
 
-                            <label class="auth-label" for="delete_password">{{ __('Password') }}</label>
-                            <input id="delete_password" class="auth-input" name="password" type="password" autocomplete="current-password" />
-                            @if ($errors->userDeletion->has('password'))
-                                <div class="auth-error">{{ $errors->userDeletion->first('password') }}</div>
-                            @endif
+                                <label class="auth-label" for="delete_password">{{ __('Password') }}</label>
+                                <input id="delete_password" class="auth-input" name="password" type="password" autocomplete="current-password" />
+                                @if ($errors->userDeletion->has('password'))
+                                    <div class="auth-error">{{ $errors->userDeletion->first('password') }}</div>
+                                @endif
 
-                            <div class="auth-actions">
-                                <button class="btn danger" type="submit">{{ __('Delete account') }}</button>
-                            </div>
-                        </form>
+                                <div class="auth-actions">
+                                    <button class="btn danger" type="submit">{{ __('Delete account') }}</button>
+                                </div>
+                            </form>
+                        @endif
                     </div>
                 </details>
             </div>

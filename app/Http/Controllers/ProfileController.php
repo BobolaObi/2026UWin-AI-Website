@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Services\SuperAdminService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,10 +15,15 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit(Request $request, SuperAdminService $super_admin_service): View
     {
+        $user = $request->user();
+        $is_current_super_admin = $super_admin_service->current_user_id() === $user->id;
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'can_delete_account' => ! $is_current_super_admin,
+            'is_current_super_admin' => $is_current_super_admin,
         ]);
     }
 
@@ -40,8 +46,15 @@ class ProfileController extends Controller
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request, SuperAdminService $super_admin_service): RedirectResponse
     {
+        if ($super_admin_service->current_user_id() === $request->user()->id) {
+            return Redirect::route('profile.edit')->withErrors(
+                ['password' => 'Transfer ownership to another user before deleting the super admin account.'],
+                'userDeletion'
+            );
+        }
+
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
