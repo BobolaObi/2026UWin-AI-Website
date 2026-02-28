@@ -25,4 +25,13 @@ class AdminAccessTest extends TestCase
 
         $this->actingAs($admin)->get('/admin')->assertOk();
     }
+
+    public function test_admin_can_view_events_admin_page(): void
+    {
+        $admin = User::factory()->create([
+            'is_admin' => true,
+        ]);
+
+        $this->actingAs($admin)->get('/admin/events')->assertOk();
+    }
 }

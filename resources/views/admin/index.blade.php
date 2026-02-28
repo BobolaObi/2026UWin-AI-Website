@@ -13,6 +13,11 @@
                     <p class="text-sm text-gray-600">
                         {{ __('Logged in as:') }} {{ Auth::user()->email }}
                     </p>
+                    <div>
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('admin.events.index') }}">
+                            {{ __('Manage events') }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

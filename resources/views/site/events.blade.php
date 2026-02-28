@@ -16,66 +16,41 @@
 
   <div class="events-shell">
     <div class="event-list">
-      <div class="event-row" data-reveal role="button" tabindex="0"
-           data-title="Mini Jarvis Workshop"
-           data-start="2026-01-16T17:00:00"
-           data-end="2026-01-16T20:00:00"
-           data-location="Toledo Health Education CTR 102"
-           data-description="Build your own voice-powered AI assistant with Python.">
-        <div>
-          <h3>Mini Jarvis Workshop <span>Toledo Health Education CTR 102</span></h3>
-          <p>Build your own voice-powered AI assistant with Python.</p>
+      @forelse ($events as $event)
+        @php
+          $location_text = $event->location ?: '';
+          $description_text = $event->description ?: '';
+          $date_label = $event->starts_at
+              ? $event->starts_at->timezone(config('app.timezone'))->format('M j, Y')
+              : '';
+          $time_label = ($event->starts_at && $event->ends_at)
+              ? $event->starts_at->timezone(config('app.timezone'))->format('g:i A').'–'.$event->ends_at->timezone(config('app.timezone'))->format('g:i A')
+              : '';
+          $pill_label = trim($date_label.($time_label !== '' ? " · {$time_label}" : ''));
+        @endphp
+        <div class="event-row" data-reveal role="button" tabindex="0"
+             data-title="{{ $event->title }}"
+             data-start="{{ $event->starts_at?->timezone(config('app.timezone'))->toIso8601String() }}"
+             data-end="{{ $event->ends_at?->timezone(config('app.timezone'))->toIso8601String() }}"
+             data-location="{{ $location_text }}"
+             data-description="{{ $description_text }}">
+          <div>
+            <h3>{{ $event->title }} @if ($location_text !== '') <span>{{ $location_text }}</span> @endif</h3>
+            @if ($description_text !== '')
+              <p>{{ $description_text }}</p>
+            @endif
+          </div>
+          <div class="event-date breath">{{ $pill_label }}</div>
         </div>
-        <div class="event-date breath">Jan 16, 2026 · 5:00–8:00 PM</div>
-      </div>
-      <div class="event-row" data-reveal role="button" tabindex="0"
-           data-title="ML Learning Workshop"
-           data-start="2026-03-19T11:30:00"
-           data-end="2026-03-19T13:00:00"
-           data-location="Dillon Hall 255"
-           data-description="Hands-on ML learning session (bring a laptop).">
-        <div>
-          <h3>ML Learning Workshop <span>Dillon Hall 255</span></h3>
-          <p>Hands-on ML learning session (bring a laptop).</p>
+      @empty
+        <div class="panel-card" data-reveal>
+          <div class="panel-kicker">No events yet</div>
+          <p class="sub" style="margin:0;">Check back soon, or join the Discord for announcements.</p>
+          <div class="panel-actions" style="margin-top:12px;">
+            <a class="btn primary breath" href="{{ route('join') }}">Join</a>
+          </div>
         </div>
-        <div class="event-date breath">Mar 19 · 11:30 AM–1:00 PM</div>
-      </div>
-      <div class="event-row" data-reveal role="button" tabindex="0"
-           data-title="AI and Autonomous Technologies on Future Societies"
-           data-start="2026-03-22T12:00:00"
-           data-end="2026-03-22T13:00:00"
-           data-location="300 Ouellette Avenue"
-           data-description="Speaker: Nour Elkott. Talk and discussion.">
-        <div>
-          <h3>AI and Autonomous Technologies on Future Societies <span>Speaker: Nour Elkott</span></h3>
-          <p>Talk and discussion at 300 Ouellette Avenue.</p>
-        </div>
-        <div class="event-date breath">Mar 22 · 12:00–1:00 PM</div>
-      </div>
-      <div class="event-row" data-reveal role="button" tabindex="0"
-           data-title="Introduction to Python Workshop"
-           data-start="2026-07-29T19:00:00"
-           data-end="2026-07-29T20:00:00"
-           data-location="Online"
-           data-description="Led by Matthew Muscedere (AI Club President).">
-        <div>
-          <h3>Introduction to Python Workshop <span>Online</span></h3>
-          <p>Led by Matthew Muscedere (AI Club President).</p>
-        </div>
-        <div class="event-date breath">Jul 29 · 7:00–8:00 PM</div>
-      </div>
-      <div class="event-row" data-reveal role="button" tabindex="0"
-           data-title="ML Model Training Workshop"
-           data-start="2026-07-30T19:00:00"
-           data-end="2026-07-30T20:00:00"
-           data-location="Online"
-           data-description="Led by Gabriel Rueda.">
-        <div>
-          <h3>ML Model Training Workshop <span>Online</span></h3>
-          <p>Led by Gabriel Rueda.</p>
-        </div>
-        <div class="event-date breath">Jul 30 · 7:00–8:00 PM</div>
-      </div>
+      @endforelse
     </div>
   </div>
 
