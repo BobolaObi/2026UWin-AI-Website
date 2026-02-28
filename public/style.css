@@ -737,6 +737,120 @@ pre{
   .event-date{order:-1;}
 }
 
+.auth-page .events-hero-content h1{
+  font-size:56px;
+}
+.auth-card{
+  background:#fff;
+  border:1px solid rgba(14,27,42,.12);
+  border-radius:18px;
+  box-shadow:0 18px 44px rgba(0,0,0,.08);
+  padding:18px 18px 16px;
+  width:min(560px, 100%);
+  margin:0 auto;
+}
+.auth-form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.auth-label{
+  font-weight:800;
+  letter-spacing:-.01em;
+  color:#0e1b2a;
+}
+.auth-input{
+  width:100%;
+  border-radius:14px;
+  border:1px solid rgba(14,27,42,.18);
+  background:#ffffff;
+  padding:12px 14px;
+  font:inherit;
+  box-shadow:0 8px 18px rgba(0,0,0,.04);
+}
+.auth-input:focus{
+  outline:2px solid rgba(255,206,0,.9);
+  outline-offset:2px;
+}
+.auth-checkbox{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#394867;
+  font-weight:700;
+}
+.auth-checkbox input{
+  width:18px;
+  height:18px;
+  accent-color:var(--blue);
+}
+.auth-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-start;
+  margin-top:6px;
+}
+.auth-actions form{
+  margin:0;
+}
+.auth-status{
+  background:rgba(0,85,150,.08);
+  border:1px solid rgba(0,85,150,.22);
+  color:#0e1b2a;
+  padding:10px 12px;
+  border-radius:14px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+.auth-error{
+  color:#9b1c1c;
+  font-weight:800;
+  font-size:13px;
+  margin-top:-6px;
+}
+.auth-meta{
+  margin-top:10px;
+  color:#394867;
+  font-weight:700;
+}
+.auth-meta a{
+  color:var(--blue);
+  text-decoration:none;
+  margin-left:6px;
+}
+.auth-meta a:hover{
+  text-decoration:underline;
+}
+
+@media(max-width:900px){
+  .auth-page .events-hero-content h1{font-size:48px;}
+  .auth-actions{flex-direction:column;align-items:stretch;}
+  .auth-actions .btn{width:100%;}
+}
+
+.panel-card{
+  background:#fff;
+  border:1px solid rgba(14,27,42,.12);
+  border-radius:18px;
+  box-shadow:0 18px 44px rgba(0,0,0,.08);
+  padding:18px 18px 16px;
+  width:min(680px, 100%);
+  margin:0 auto;
+}
+.panel-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-start;
+}
+@media(max-width:900px){
+  .panel-actions{flex-direction:column;align-items:stretch;}
+  .panel-actions .btn{width:100%;}
+}
+
 .modal[hidden]{display:none;}
 .modal-open{overflow:hidden;}
 .modal-backdrop{

@@ -1,31 +1,40 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
+@extends('layouts.site')
 
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+@section('title', 'Verify email | Windsor AI Club')
+@section('body_class', 'events-page auth-page')
+
+@section('content')
+    <div class="events-hero">
+        @include('partials.site.header', ['header_class' => 'events-nav'])
+        <div class="events-hero-content" data-reveal>
+            <a class="back-link" href="{{ route('dashboard') }}" data-reveal>← Back</a>
+            <h1 data-reveal>Verify your email</h1>
+            <p class="events-season" data-reveal>Almost there</p>
+            <p class="sub" data-reveal>
+                {{ __("Before getting started, please verify your email address by clicking the link we emailed you. If you didn't receive it, we can send another.") }}
+            </p>
         </div>
-    @endif
-
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
-
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
-            </div>
-        </form>
-
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {{ __('Log Out') }}
-            </button>
-        </form>
     </div>
-</x-guest-layout>
+
+    <div class="events-shell">
+        <div class="auth-card" data-reveal>
+            @if (session('status') === 'verification-link-sent')
+                <div class="auth-status">{{ __('A new verification link has been sent to your email address.') }}</div>
+            @endif
+
+            <div class="auth-actions">
+                <form method="POST" action="{{ route('verification.send') }}">
+                    @csrf
+                    <button class="btn primary breath" type="submit">{{ __('Resend email') }}</button>
+                </form>
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="btn secondary" type="submit">{{ __('Log out') }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @include('partials.site.footer', ['footer_class' => 'dark-footer'])
+@endsection

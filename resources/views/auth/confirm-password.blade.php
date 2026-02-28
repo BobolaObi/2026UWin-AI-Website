@@ -1,27 +1,44 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+@extends('layouts.site')
+
+@section('title', 'Confirm password | Windsor AI Club')
+@section('body_class', 'events-page auth-page')
+
+@section('content')
+    <div class="events-hero">
+        @include('partials.site.header', ['header_class' => 'events-nav'])
+        <div class="events-hero-content" data-reveal>
+            <a class="back-link" href="{{ route('dashboard') }}" data-reveal>← Back</a>
+            <h1 data-reveal>Confirm password</h1>
+            <p class="events-season" data-reveal>Security check</p>
+            <p class="sub" data-reveal>{{ __('Please confirm your password before continuing.') }}</p>
+        </div>
     </div>
 
-    <form method="POST" action="{{ route('password.confirm') }}">
-        @csrf
+    <div class="events-shell">
+        <div class="auth-card" data-reveal>
+            <form class="auth-form" method="POST" action="{{ route('password.confirm') }}">
+                @csrf
 
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
+                <label class="auth-label" for="password">{{ __('Password') }}</label>
+                <input
+                    id="password"
+                    class="auth-input"
+                    type="password"
+                    name="password"
+                    required
+                    autocomplete="current-password"
+                />
+                @error('password')
+                    <div class="auth-error">{{ $message }}</div>
+                @enderror
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <div class="auth-actions">
+                    <button class="btn primary breath" type="submit">{{ __('Confirm') }}</button>
+                    <a class="btn secondary" href="{{ route('dashboard') }}">{{ __('Cancel') }}</a>
+                </div>
+            </form>
         </div>
+    </div>
 
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    @include('partials.site.footer', ['footer_class' => 'dark-footer'])
+@endsection
