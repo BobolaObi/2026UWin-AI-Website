@@ -19,10 +19,15 @@ class AdminUsersController extends Controller
         $current_super_admin_id = $super_admin_service->current_user_id();
         $is_actor_super_admin = $actor->is_super_admin() || $current_super_admin_id === $actor->id;
 
-        $users = User::query()
+        $users_query = User::query()
             ->orderByDesc('created_at')
-            ->limit(250)
-            ->get();
+            ->limit(250);
+
+        if (! $is_actor_super_admin && $current_super_admin_id) {
+            $users_query->where('id', '!=', $current_super_admin_id);
+        }
+
+        $users = $users_query->get();
 
         return view('admin.users.index', [
             'users' => $users,
