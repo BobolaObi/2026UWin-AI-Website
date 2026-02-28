@@ -41,8 +41,7 @@ class ProfileController extends Controller
         $user->fill(collect($validated)->except('avatar')->all());
 
         if ($request->hasFile('avatar')) {
-            $disk = 'public_uploads';
-            $path = $request->file('avatar')->storePublicly('avatars', $disk);
+            $path = $request->file('avatar')->storePublicly('avatars', 'public');
 
             if ($user->avatar_path) {
                 if (str_starts_with($user->avatar_path, 'uploads/')) {
@@ -52,7 +51,7 @@ class ProfileController extends Controller
                 }
             }
 
-            $user->avatar_path = 'uploads/'.$path;
+            $user->avatar_path = $path;
         }
 
         if ($user->isDirty('email')) {

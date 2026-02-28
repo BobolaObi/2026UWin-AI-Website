@@ -47,7 +47,7 @@ class ProfileTest extends TestCase
 
     public function test_user_can_upload_avatar(): void
     {
-        Storage::fake('public_uploads');
+        Storage::fake('public');
 
         $user = User::factory()->create();
 
@@ -65,10 +65,8 @@ class ProfileTest extends TestCase
 
         $user->refresh();
         $this->assertNotNull($user->avatar_path);
-        $this->assertStringStartsWith('uploads/avatars/', (string) $user->avatar_path);
-
-        $relative = substr((string) $user->avatar_path, strlen('uploads/'));
-        Storage::disk('public_uploads')->assertExists($relative);
+        $this->assertStringStartsWith('avatars/', (string) $user->avatar_path);
+        Storage::disk('public')->assertExists((string) $user->avatar_path);
     }
 
     public function test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged(): void
