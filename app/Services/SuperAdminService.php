@@ -49,4 +49,46 @@ class SuperAdminService
             $user->save();
         });
     }
+
+    public function sync_roles_for_request(User $user): void
+    {
+        $current_id = $this->current_user_id();
+        if (! $current_id) {
+            return;
+        }
+
+        if ($user->id === $current_id) {
+            if ($user->role !== User::ROLE_SUPER_ADMIN || ! $user->is_admin) {
+                User::query()
+                    ->whereKey($user->id)
+                    ->update([
+                        'role' => User::ROLE_SUPER_ADMIN,
+                        'is_admin' => true,
+                    ]);
+                $user->role = User::ROLE_SUPER_ADMIN;
+                $user->is_admin = true;
+            }
+
+            User::query()
+                ->where('role', User::ROLE_SUPER_ADMIN)
+                ->where('id', '!=', $current_id)
+                ->update([
+                    'role' => User::ROLE_ADMIN,
+                    'is_admin' => true,
+                ]);
+
+            return;
+        }
+
+        if ($user->role === User::ROLE_SUPER_ADMIN) {
+            User::query()
+                ->whereKey($user->id)
+                ->update([
+                    'role' => User::ROLE_ADMIN,
+                    'is_admin' => true,
+                ]);
+            $user->role = User::ROLE_ADMIN;
+            $user->is_admin = true;
+        }
+    }
 }

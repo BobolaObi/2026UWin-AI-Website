@@ -114,4 +114,21 @@ class AdminAccessTest extends TestCase
             ->assertSessionHasNoErrors()
             ->assertRedirect('/admin/users');
     }
+
+    public function test_primary_super_admin_role_is_synced_from_pointer(): void
+    {
+        $user = User::factory()->create([
+            'role' => User::ROLE_ADMIN,
+            'is_admin' => true,
+        ]);
+
+        DB::table('super_admins')->updateOrInsert(
+            ['id' => 1],
+            ['user_id' => $user->id, 'created_at' => now(), 'updated_at' => now()]
+        );
+
+        $this->actingAs($user)->get('/dashboard')->assertOk();
+
+        $this->assertSame(User::ROLE_SUPER_ADMIN, $user->refresh()->role);
+    }
 }

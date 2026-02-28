@@ -12,10 +12,7 @@
     @php
       /** @var \App\Models\User $user */
       $user = auth()->user();
-      $current_super_admin_id = app(\App\Services\SuperAdminService::class)->current_user_id();
-      $role = $current_super_admin_id === $user->id
-          ? \App\Models\User::ROLE_SUPER_ADMIN
-          : ($user->role ?: \App\Models\User::ROLE_MEMBER);
+      $role = $user->role ?: \App\Models\User::ROLE_MEMBER;
       $is_staff = in_array($role, [\App\Models\User::ROLE_EDITOR, \App\Models\User::ROLE_ADMIN, \App\Models\User::ROLE_SUPER_ADMIN], true);
       $badge_text = strtoupper(str_replace('_', ' ', $role));
     @endphp

@@ -18,10 +18,7 @@
         @php
             /** @var \App\Models\User $user */
             $user = auth()->user();
-            $current_super_admin_id = app(\App\Services\SuperAdminService::class)->current_user_id();
-            $role = $current_super_admin_id === $user->id
-                ? \App\Models\User::ROLE_SUPER_ADMIN
-                : ($user->role ?: \App\Models\User::ROLE_MEMBER);
+            $role = $user->role ?: \App\Models\User::ROLE_MEMBER;
             $can_edit_events = $user->is_editor_role();
             $can_manage_users = $user->is_admin_role();
         @endphp
