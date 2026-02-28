@@ -13,7 +13,7 @@
 
 body{
   margin:0;
-  font-family:"Space Grotesk", Inter, system-ui, -apple-system, "Segoe UI", Roboto;
+  font-family:"Inter", Inter, system-ui, -apple-system, "Segoe UI", Roboto;
   background:#ffffff;
   color:var(--text);
   text-rendering: optimizeLegibility;
@@ -628,7 +628,7 @@ pre{
   background:#f4f7fb;
   color:#0e1b2a;
   min-height:100vh;
-  font-family:"Space Grotesk", Inter, system-ui, -apple-system, "Segoe UI", Roboto;
+  font-family:"Inter", Inter, system-ui, -apple-system, "Segoe UI", Roboto;
 }
 .events-hero{
   position:relative;

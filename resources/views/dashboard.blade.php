@@ -18,7 +18,7 @@
         @php
             /** @var \App\Models\User $user */
             $user = auth()->user();
-            $role = $user->role ?: \App\Models\User::ROLE_MEMBER;
+            $role = $user->role_for_badge();
             $can_edit_events = $user->is_editor_role();
             $can_manage_users = $user->is_admin_role();
         @endphp
@@ -53,7 +53,13 @@
                 <a class="portal-tile portal-tile-accent" href="{{ route('admin.users.index') }}">
                     <div class="portal-kicker">Admin</div>
                     <div class="portal-title">Manage users</div>
-                    <div class="portal-desc">Assign roles (only super admin can manage admins/owner).</div>
+                    <div class="portal-desc">Assign roles (only the owner can manage admins).</div>
+                </a>
+
+                <a class="portal-tile portal-tile-accent" href="{{ route('admin.leaders.index') }}">
+                    <div class="portal-kicker">Admin</div>
+                    <div class="portal-title">Leaders page</div>
+                    <div class="portal-desc">Curate who appears on the public leaders page.</div>
                 </a>
             @endif
 

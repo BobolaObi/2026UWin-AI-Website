@@ -30,7 +30,7 @@ class AdminUserSeeder extends Seeder
         if ($user) {
             if (! $super_admin_service->exists()) {
                 $super_admin_service->ensure($user);
-                $this->command?->info("Default super admin ensured for {$default_admin_email}.");
+                $this->command?->info("Default owner ensured for {$default_admin_email}.");
                 return;
             }
 
@@ -66,7 +66,7 @@ class AdminUserSeeder extends Seeder
 
         if ($user->role === User::ROLE_SUPER_ADMIN) {
             $super_admin_service->ensure($user);
-            $this->command?->info("Created default super admin user: {$default_admin_email}.");
+            $this->command?->info("Created default owner user: {$default_admin_email}.");
             return;
         }
 

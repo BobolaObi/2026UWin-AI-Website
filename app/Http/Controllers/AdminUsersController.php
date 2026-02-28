@@ -66,11 +66,11 @@ class AdminUsersController extends Controller
             }
 
             $super_admin_service->ensure($user);
-            $this->audit($request, 'users.transfer_super_admin', [
+            $this->audit($request, 'users.transfer_owner', [
                 'target_user_id' => $user->id,
             ]);
 
-            return redirect()->route('admin.users.index')->with('status', 'Super admin transferred.');
+            return redirect()->route('admin.users.index')->with('status', 'Ownership transferred.');
         }
 
         $current_super_admin_id = $super_admin_service->current_user_id();

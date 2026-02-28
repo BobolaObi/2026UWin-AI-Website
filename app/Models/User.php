@@ -27,6 +27,11 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'tagline',
+        'bio',
+        'avatar_path',
+        'linkedin_url',
+        'github_url',
     ];
 
     /**
@@ -51,6 +56,16 @@ class User extends Authenticatable
             'is_admin' => 'boolean',
             'password' => 'hashed',
         ];
+    }
+
+    public function role_for_badge(): string
+    {
+        $role = $this->role ?: self::ROLE_MEMBER;
+        if ($role === self::ROLE_SUPER_ADMIN) {
+            return self::ROLE_ADMIN;
+        }
+
+        return $role;
     }
 
     public function is_super_admin(): bool

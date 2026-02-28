@@ -168,8 +168,7 @@ header nav a.active::after{
   background:#ffffff;
   color:#0e1b2a;
 }
-.nav-role-admin,
-.nav-role-super_admin{
+.nav-role-admin{
   border-color:rgba(255,206,0,.95);
   background:rgba(255,206,0,.14);
 }
@@ -728,13 +727,13 @@ pre{
   opacity:0;
 }
 .events-shell{
-  max-width:1160px;
+  max-width:1240px;
   margin:0 auto;
   padding:10px 34px 80px;
 }
 .dashboard-page .events-shell,
 .admin-page .events-shell{
-  max-width:1280px;
+  max-width:1440px;
 }
 .event-list{
   display:flex;
@@ -1014,7 +1013,7 @@ pre{
   gap:16px;
 }
 .portal-tile{
-  grid-column:span 4;
+  grid-column:span 6;
   background:#fff;
   border:1px solid rgba(14,27,42,.12);
   border-radius:18px;
@@ -1057,10 +1056,7 @@ pre{
   font-weight:600;
   line-height:1.5;
 }
-@media(max-width:1100px){
-  .portal-tile{grid-column:span 6;}
-}
-@media(max-width:700px){
+@media(max-width:900px){
   .portal-tile{grid-column:span 12;}
 }
 

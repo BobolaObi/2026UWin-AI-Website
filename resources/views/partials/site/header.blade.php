@@ -13,13 +13,14 @@
       /** @var \App\Models\User $user */
       $user = auth()->user();
       $role = $user->role ?: \App\Models\User::ROLE_MEMBER;
+      $badge_role = $user->role_for_badge();
       $is_staff = in_array($role, [\App\Models\User::ROLE_EDITOR, \App\Models\User::ROLE_ADMIN, \App\Models\User::ROLE_SUPER_ADMIN], true);
-      $badge_text = strtoupper(str_replace('_', ' ', $role));
+      $badge_text = strtoupper(str_replace('_', ' ', $badge_role));
     @endphp
     <div class="nav-auth">
       <a class="nav-auth-link" href="{{ route('dashboard') }}">Dashboard</a>
       @if ($is_staff)
-        <span class="nav-role-pill nav-role-{{ $role }}">{{ $badge_text }}</span>
+        <span class="nav-role-pill nav-role-{{ $badge_role }}">{{ $badge_text }}</span>
       @endif
     </div>
   @endauth
