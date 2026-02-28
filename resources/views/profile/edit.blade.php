@@ -50,13 +50,18 @@
                     </div>
                     @error('avatar') <div class="auth-error">{{ $message }}</div> @enderror
 
-                    <label class="auth-label" for="name">{{ __('Name') }}</label>
-                    <input id="name" class="auth-input" name="name" type="text" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name" />
-                    @error('name') <div class="auth-error">{{ $message }}</div> @enderror
-
-                    <label class="auth-label" for="email">{{ __('Email') }}</label>
-                    <input id="email" class="auth-input" name="email" type="email" value="{{ old('email', $user->email) }}" required autocomplete="username" />
-                    @error('email') <div class="auth-error">{{ $message }}</div> @enderror
+                    <div class="field-grid cols-2">
+                        <div>
+                            <label class="auth-label" for="name">{{ __('Name') }}</label>
+                            <input id="name" class="auth-input" name="name" type="text" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name" />
+                            @error('name') <div class="auth-error">{{ $message }}</div> @enderror
+                        </div>
+                        <div>
+                            <label class="auth-label" for="email">{{ __('Email') }}</label>
+                            <input id="email" class="auth-input" name="email" type="email" value="{{ old('email', $user->email) }}" required autocomplete="username" />
+                            @error('email') <div class="auth-error">{{ $message }}</div> @enderror
+                        </div>
+                    </div>
 
                     <label class="auth-label" for="tagline">Tagline (optional)</label>
                     <input id="tagline" class="auth-input" name="tagline" type="text" value="{{ old('tagline', $user->tagline) }}" maxlength="140" />
@@ -66,13 +71,18 @@
                     <textarea id="bio" class="auth-input" name="bio" rows="5" style="resize:vertical;">{{ old('bio', $user->bio) }}</textarea>
                     @error('bio') <div class="auth-error">{{ $message }}</div> @enderror
 
-                    <label class="auth-label" for="linkedin_url">LinkedIn URL (optional)</label>
-                    <input id="linkedin_url" class="auth-input" name="linkedin_url" type="url" value="{{ old('linkedin_url', $user->linkedin_url) }}" placeholder="https://linkedin.com/in/..." />
-                    @error('linkedin_url') <div class="auth-error">{{ $message }}</div> @enderror
-
-                    <label class="auth-label" for="github_url">GitHub URL (optional)</label>
-                    <input id="github_url" class="auth-input" name="github_url" type="url" value="{{ old('github_url', $user->github_url) }}" placeholder="https://github.com/..." />
-                    @error('github_url') <div class="auth-error">{{ $message }}</div> @enderror
+                    <div class="field-grid cols-2">
+                        <div>
+                            <label class="auth-label" for="linkedin_url">LinkedIn URL (optional)</label>
+                            <input id="linkedin_url" class="auth-input" name="linkedin_url" type="url" value="{{ old('linkedin_url', $user->linkedin_url) }}" placeholder="https://linkedin.com/in/..." />
+                            @error('linkedin_url') <div class="auth-error">{{ $message }}</div> @enderror
+                        </div>
+                        <div>
+                            <label class="auth-label" for="github_url">GitHub URL (optional)</label>
+                            <input id="github_url" class="auth-input" name="github_url" type="url" value="{{ old('github_url', $user->github_url) }}" placeholder="https://github.com/..." />
+                            @error('github_url') <div class="auth-error">{{ $message }}</div> @enderror
+                        </div>
+                    </div>
 
                     <div class="auth-actions">
                         <button class="btn primary breath" type="submit">{{ __('Save') }}</button>
@@ -100,17 +110,22 @@
                         <div class="auth-error">{{ $errors->updatePassword->first('current_password') }}</div>
                     @endif
 
-                    <label class="auth-label" for="password">{{ __('New Password') }}</label>
-                    <input id="password" class="auth-input" name="password" type="password" autocomplete="new-password" />
-                    @if ($errors->updatePassword->has('password'))
-                        <div class="auth-error">{{ $errors->updatePassword->first('password') }}</div>
-                    @endif
-
-                    <label class="auth-label" for="password_confirmation">{{ __('Confirm Password') }}</label>
-                    <input id="password_confirmation" class="auth-input" name="password_confirmation" type="password" autocomplete="new-password" />
-                    @if ($errors->updatePassword->has('password_confirmation'))
-                        <div class="auth-error">{{ $errors->updatePassword->first('password_confirmation') }}</div>
-                    @endif
+                    <div class="field-grid cols-2">
+                        <div>
+                            <label class="auth-label" for="password">{{ __('New Password') }}</label>
+                            <input id="password" class="auth-input" name="password" type="password" autocomplete="new-password" />
+                            @if ($errors->updatePassword->has('password'))
+                                <div class="auth-error">{{ $errors->updatePassword->first('password') }}</div>
+                            @endif
+                        </div>
+                        <div>
+                            <label class="auth-label" for="password_confirmation">{{ __('Confirm Password') }}</label>
+                            <input id="password_confirmation" class="auth-input" name="password_confirmation" type="password" autocomplete="new-password" />
+                            @if ($errors->updatePassword->has('password_confirmation'))
+                                <div class="auth-error">{{ $errors->updatePassword->first('password_confirmation') }}</div>
+                            @endif
+                        </div>
+                    </div>
 
                     <div class="auth-actions">
                         <button class="btn primary breath" type="submit">{{ __('Save') }}</button>
