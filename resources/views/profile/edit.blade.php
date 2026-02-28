@@ -16,7 +16,7 @@
 
     <div class="events-shell">
         <div class="portal-grid" data-reveal>
-            <div class="portal-tile portal-tile-form" style="grid-column: span 12;">
+            <div class="portal-tile portal-tile-form" style="grid-column: span 7;">
                 <div class="portal-kicker">Profile</div>
                 <div class="portal-title">Info</div>
                 <div class="portal-desc">Name and email address.</div>
@@ -81,7 +81,7 @@
                 </form>
             </div>
 
-            <div class="portal-tile portal-tile-form" style="grid-column: span 12;">
+            <div class="portal-tile portal-tile-form" style="grid-column: span 5;">
                 <div class="portal-kicker">Security</div>
                 <div class="portal-title">Password</div>
                 <div class="portal-desc">Use a long, random password.</div>

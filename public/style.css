@@ -1067,6 +1067,17 @@ pre{
   .portal-tile{grid-column:span 12;}
 }
 
+.dashboard-page .panel-card,
+.dashboard-page .portal-tile,
+.dashboard-page .auth-input,
+.dashboard-page .admin-form-actions{
+  box-shadow:none;
+}
+.dashboard-page .portal-tile:hover{
+  transform:none;
+  box-shadow:none;
+}
+
 /* Admin UI: flat (no shadows) */
 .admin-page .panel-card,
 .admin-page .portal-tile,
