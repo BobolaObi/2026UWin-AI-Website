@@ -10,10 +10,6 @@ class EventSeeder extends Seeder
 {
     public function run(): void
     {
-        if (Event::query()->exists()) {
-            return;
-        }
-
         $timezone = config('app.timezone');
 
         $items = [
@@ -65,7 +61,14 @@ class EventSeeder extends Seeder
         ];
 
         foreach ($items as $item) {
-            Event::create($item);
+            Event::query()->updateOrCreate(
+                [
+                    'title' => $item['title'],
+                    'starts_at' => $item['starts_at'],
+                    'ends_at' => $item['ends_at'],
+                ],
+                $item
+            );
         }
     }
 }
