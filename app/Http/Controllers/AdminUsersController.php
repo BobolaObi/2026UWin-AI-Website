@@ -23,8 +23,11 @@ class AdminUsersController extends Controller
             ->orderByDesc('created_at')
             ->limit(250);
 
-        if (! $is_actor_super_admin && $current_super_admin_id) {
-            $users_query->where('id', '!=', $current_super_admin_id);
+        if (! $is_actor_super_admin) {
+            $users_query->where('role', '!=', User::ROLE_SUPER_ADMIN);
+            if ($current_super_admin_id) {
+                $users_query->where('id', '!=', $current_super_admin_id);
+            }
         }
 
         $users = $users_query->get();
@@ -64,6 +67,10 @@ class AdminUsersController extends Controller
             if (! $is_actor_super_admin) {
                 abort(403);
             }
+
+            $request->validate([
+                'password' => ['required', 'current_password'],
+            ]);
 
             $super_admin_service->ensure($user);
             $this->audit($request, 'users.transfer_owner', [

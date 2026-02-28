@@ -60,4 +60,29 @@ class AdminAccessTest extends TestCase
 
         $this->actingAs($owner)->get('/admin/users')->assertOk();
     }
+
+    public function test_transfer_requires_password_confirmation(): void
+    {
+        $owner = User::factory()->create([
+            'role' => User::ROLE_SUPER_ADMIN,
+        ]);
+        DB::table('super_admins')->updateOrInsert(
+            ['id' => 1],
+            ['user_id' => $owner->id, 'created_at' => now(), 'updated_at' => now()]
+        );
+
+        $target = User::factory()->create();
+
+        $this->actingAs($owner)
+            ->patch("/admin/users/{$target->id}/role", ['role' => User::ROLE_SUPER_ADMIN])
+            ->assertSessionHasErrors(['password']);
+
+        $this->actingAs($owner)
+            ->patch("/admin/users/{$target->id}/role", [
+                'role' => User::ROLE_SUPER_ADMIN,
+                'password' => 'password',
+            ])
+            ->assertSessionHasNoErrors()
+            ->assertRedirect('/admin/users');
+    }
 }

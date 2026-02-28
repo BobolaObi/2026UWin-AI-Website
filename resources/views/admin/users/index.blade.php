@@ -19,10 +19,16 @@
                 <div class="auth-status">{{ session('status') }}</div>
             @endif
 
+            @if ($errors->any())
+                <div class="auth-error" style="margin: 0 0 12px;">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
             @if ($is_actor_super_admin)
                 <div class="panel-kicker">Rules</div>
                 <ul class="panel-list">
-                    <li><strong>Owner:</strong> exactly one; can assign any role.</li>
+                    <li><strong>Protected account:</strong> exactly one; can assign any role.</li>
                     <li><strong>Admin:</strong> can assign Editor roles.</li>
                     <li><strong>Editor:</strong> can manage events.</li>
                 </ul>
@@ -53,9 +59,6 @@
                     <div class="admin-row">
                         <div class="admin-title">
                             {{ $user->name }}
-                            @if ($is_actor_super_admin && $is_super)
-                                <span class="badge badge-live" style="margin-left:10px;">Owner</span>
-                            @endif
                         </div>
                         <div class="admin-when">{{ $user->email }}</div>
                         <div>
@@ -65,16 +68,19 @@
                             <form method="POST" action="{{ route('admin.users.role', $user) }}">
                                 @csrf
                                 @method('PATCH')
-                                <select class="auth-input" name="role" style="padding:10px 12px; width: 180px;" {{ $is_protected ? 'disabled' : '' }}>
+                                <select class="auth-input" name="role" style="padding:10px 12px; width: 200px;" {{ $is_protected ? 'disabled' : '' }} data-role-select>
                                     <option value="member" {{ $role === 'member' ? 'selected' : '' }}>member</option>
                                     <option value="editor" {{ $role === 'editor' ? 'selected' : '' }}>editor</option>
                                     @if ($is_actor_super_admin)
                                         <option value="admin" {{ $role === 'admin' ? 'selected' : '' }}>admin</option>
-                                        <option value="super_admin" {{ $role === 'super_admin' ? 'selected' : '' }}>owner</option>
+                                        <option value="super_admin" {{ $role === 'super_admin' ? 'selected' : '' }}>transfer ownership</option>
                                     @endif
                                 </select>
+                                @if ($is_actor_super_admin && ! $is_protected)
+                                    <input class="auth-input" type="password" name="password" placeholder="Confirm your password" style="display:none; width: 220px;" data-transfer-password />
+                                @endif
                                 @if (! $is_protected)
-                                    <button class="btn secondary" type="submit">Update</button>
+                                    <button class="btn secondary" type="submit" data-role-submit>Update</button>
                                 @endif
                             </form>
                         </div>
@@ -86,3 +92,25 @@
 
     @include('partials.site.footer', ['footer_class' => 'dark-footer'])
 @endsection
+
+@push('scripts')
+    <script>
+        document.querySelectorAll('form').forEach((form) => {
+            const select = form.querySelector('[data-role-select]');
+            const password = form.querySelector('[data-transfer-password]');
+            const submit = form.querySelector('[data-role-submit]');
+            if (!select || !password || !submit) return;
+
+            function sync() {
+                const transferring = select.value === 'super_admin';
+                password.style.display = transferring ? 'inline-block' : 'none';
+                password.required = transferring;
+                if (!transferring) password.value = '';
+                submit.textContent = transferring ? 'Transfer' : 'Update';
+            }
+
+            select.addEventListener('change', sync);
+            sync();
+        });
+    </script>
+@endpush
