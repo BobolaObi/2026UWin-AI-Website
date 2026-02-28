@@ -267,6 +267,11 @@ header nav a.active::after{
   color:var(--text);
   border:1px solid rgba(0,85,150,.18);
 }
+.danger{
+  background:#b91c1c;
+  color:#fff;
+  box-shadow:0 10px 30px rgba(185,28,28,.25);
+}
 .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
 .pill{
   display:inline-flex;
@@ -727,6 +732,10 @@ pre{
   margin:0 auto;
   padding:10px 34px 80px;
 }
+.dashboard-page .events-shell,
+.admin-page .events-shell{
+  max-width:1280px;
+}
 .event-list{
   display:flex;
   flex-direction:column;
@@ -989,7 +998,7 @@ pre{
   border-color:rgba(0,85,150,.22);
 }
 .portal-tile-accent{
-  background:linear-gradient(180deg, rgba(0,85,150,.06), rgba(255,255,255,1));
+  background:rgba(0,85,150,.05);
 }
 .portal-tile-form{
   align-items:flex-start;
