@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -40,11 +41,18 @@ class ProfileController extends Controller
         $user->fill(collect($validated)->except('avatar')->all());
 
         if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->storePublicly('avatars', 'public');
+            $disk = 'public_uploads';
+            $path = $request->file('avatar')->storePublicly('avatars', $disk);
+
             if ($user->avatar_path) {
-                Storage::disk('public')->delete($user->avatar_path);
+                if (str_starts_with($user->avatar_path, 'uploads/')) {
+                    File::delete(public_path($user->avatar_path));
+                } else {
+                    Storage::disk('public')->delete($user->avatar_path);
+                }
             }
-            $user->avatar_path = $path;
+
+            $user->avatar_path = 'uploads/'.$path;
         }
 
         if ($user->isDirty('email')) {

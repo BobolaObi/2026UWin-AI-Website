@@ -32,7 +32,12 @@
                     <label class="auth-label" for="avatar">Avatar (optional)</label>
                     <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
                         @php
-                            $avatar_url = $user->avatar_path ? \Illuminate\Support\Facades\Storage::url($user->avatar_path) : null;
+                            $avatar_url = null;
+                            if ($user->avatar_path) {
+                                $avatar_url = str_starts_with($user->avatar_path, 'uploads/')
+                                    ? asset($user->avatar_path)
+                                    : \Illuminate\Support\Facades\Storage::disk('public')->url($user->avatar_path);
+                            }
                             $initials = collect(explode(' ', trim($user->name ?: 'U')))
                                 ->filter()
                                 ->map(fn ($part) => mb_strtoupper(mb_substr($part, 0, 1)))
