@@ -15,37 +15,55 @@
     </div>
 
     <div class="events-shell">
-        <div class="dashboard-grid" data-reveal>
-            <div class="panel-card">
-                <div class="panel-kicker">Account</div>
-                <ul class="panel-list">
-                    <li><strong>Email:</strong> {{ auth()->user()->email }}</li>
-                    <li><strong>Status:</strong> Logged in</li>
-                    @if (auth()->user()->is_admin)
-                        <li><strong>Role:</strong> Admin</li>
-                    @endif
-                </ul>
+        @php
+            /** @var \App\Models\User $user */
+            $user = auth()->user();
+            $role = $user->role ?: \App\Models\User::ROLE_MEMBER;
+            $can_edit_events = $user->is_editor_role();
+            $can_manage_users = $user->is_admin_role();
+        @endphp
 
-                <div class="panel-actions">
-                    <a class="btn primary breath" href="{{ route('profile.edit') }}">Profile</a>
-                    @if (auth()->user()->is_admin)
-                        <a class="btn secondary" href="{{ route('admin.index') }}">Admin</a>
-                    @endif
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button class="btn secondary" type="submit">Log out</button>
-                    </form>
-                </div>
-            </div>
+        <div class="portal-meta" data-reveal>
+            Signed in as <strong>{{ $user->email }}</strong>
+            <span class="portal-pill">{{ $role }}</span>
+        </div>
 
-            <div class="panel-card">
-                <div class="panel-kicker">Explore</div>
-                <ul class="panel-list">
-                    <li><a href="{{ route('events') }}">See upcoming events</a></li>
-                    <li><a href="{{ route('leaders') }}">Meet the leaders</a></li>
-                    <li><a href="{{ route('join') }}">Share the join link</a></li>
-                </ul>
-            </div>
+        <div class="portal-grid" data-reveal>
+            <a class="portal-tile" href="{{ route('profile.edit') }}">
+                <div class="portal-kicker">Account</div>
+                <div class="portal-title">Profile</div>
+                <div class="portal-desc">Update your name, email, and password.</div>
+            </a>
+
+            <a class="portal-tile" href="{{ route('events') }}">
+                <div class="portal-kicker">Club</div>
+                <div class="portal-title">Events</div>
+                <div class="portal-desc">See upcoming events and add them to your calendar.</div>
+            </a>
+
+            @if ($can_edit_events)
+                <a class="portal-tile portal-tile-accent" href="{{ route('admin.events.index') }}">
+                    <div class="portal-kicker">Editor</div>
+                    <div class="portal-title">Edit events</div>
+                    <div class="portal-desc">Create, update, publish/unpublish, and delete events.</div>
+                </a>
+            @endif
+
+            @if ($can_manage_users)
+                <a class="portal-tile portal-tile-accent" href="{{ route('admin.users.index') }}">
+                    <div class="portal-kicker">Admin</div>
+                    <div class="portal-title">Manage users</div>
+                    <div class="portal-desc">Assign roles (only super admin can manage admins/owner).</div>
+                </a>
+            @endif
+
+            <form class="portal-tile portal-tile-form" method="POST" action="{{ route('logout') }}">
+                @csrf
+                <div class="portal-kicker">Session</div>
+                <div class="portal-title">Log out</div>
+                <div class="portal-desc">Sign out of your account on this device.</div>
+                <button class="btn secondary" type="submit">Log out</button>
+            </form>
         </div>
     </div>
 

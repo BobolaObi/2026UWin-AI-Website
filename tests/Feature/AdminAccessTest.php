@@ -25,7 +25,7 @@ class AdminAccessTest extends TestCase
             'role' => User::ROLE_ADMIN,
         ]);
 
-        $this->actingAs($admin)->get('/admin')->assertOk();
+        $this->actingAs($admin)->get('/admin')->assertRedirect('/dashboard');
     }
 
     public function test_admin_can_view_events_admin_page(): void

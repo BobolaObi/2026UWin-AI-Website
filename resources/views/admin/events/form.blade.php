@@ -14,7 +14,7 @@
     </div>
 
     <div class="events-shell">
-        <div class="panel-card" data-reveal>
+        <div class="panel-card panel-card-wide" data-reveal>
             <form class="auth-form" method="POST" action="{{ $mode === 'edit' ? route('admin.events.update', $event) : route('admin.events.store') }}">
                 @csrf
                 @if ($mode === 'edit')

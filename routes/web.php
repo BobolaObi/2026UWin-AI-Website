@@ -24,7 +24,7 @@ Route::redirect('/projects.html', '/', 301);
 Route::redirect('/footer.html', '/', 301);
 
 Route::middleware(['auth', 'role:super_admin,admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::redirect('/admin', '/dashboard', 302)->name('admin.index');
     Route::get('/admin/users', [AdminUsersController::class, 'index'])->name('admin.users.index');
     Route::patch('/admin/users/{user}/role', [AdminUsersController::class, 'update_role'])->name('admin.users.role');
 });

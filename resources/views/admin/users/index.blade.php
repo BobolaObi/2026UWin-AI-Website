@@ -14,7 +14,7 @@
     </div>
 
     <div class="events-shell">
-        <div class="panel-card" data-reveal>
+        <div class="panel-card panel-card-wide" data-reveal>
             @if (session('status'))
                 <div class="auth-status">{{ session('status') }}</div>
             @endif
@@ -71,4 +71,3 @@
 
     @include('partials.site.footer', ['footer_class' => 'dark-footer'])
 @endsection
-

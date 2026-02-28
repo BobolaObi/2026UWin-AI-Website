@@ -15,16 +15,6 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @if (Auth::user() && (Auth::user()->role === 'editor' || Auth::user()->is_admin || Auth::user()->role === 'admin' || Auth::user()->role === 'super_admin'))
-                        @php
-                            $admin_href = (Auth::user()->role === 'admin' || Auth::user()->role === 'super_admin' || Auth::user()->is_admin)
-                                ? route('admin.index')
-                                : route('admin.events.index');
-                        @endphp
-                        <x-nav-link :href="$admin_href" :active="request()->routeIs('admin.*')">
-                            {{ __('Admin') }}
-                        </x-nav-link>
-                    @endif
                 </div>
             </div>
 
@@ -80,16 +70,6 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            @if (Auth::user() && (Auth::user()->role === 'editor' || Auth::user()->is_admin || Auth::user()->role === 'admin' || Auth::user()->role === 'super_admin'))
-                @php
-                    $admin_href = (Auth::user()->role === 'admin' || Auth::user()->role === 'super_admin' || Auth::user()->is_admin)
-                        ? route('admin.index')
-                        : route('admin.events.index');
-                @endphp
-                <x-responsive-nav-link :href="$admin_href" :active="request()->routeIs('admin.*')">
-                    {{ __('Admin') }}
-                </x-responsive-nav-link>
-            @endif
         </div>
 
         <!-- Responsive Settings Options -->
