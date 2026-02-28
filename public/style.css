@@ -1060,6 +1060,22 @@ pre{
   .portal-tile{grid-column:span 12;}
 }
 
+/* Admin UI: flat (no shadows) */
+.admin-page .panel-card,
+.admin-page .portal-tile,
+.admin-page .auth-input,
+.admin-page .admin-form-actions,
+.admin-page .leader-card{
+  box-shadow:none;
+}
+.admin-page .portal-tile:hover{
+  transform:none;
+  box-shadow:none;
+}
+.admin-page .events-hero-content{
+  max-width:1440px;
+}
+
 .admin-table{
   display:flex;
   flex-direction:column;

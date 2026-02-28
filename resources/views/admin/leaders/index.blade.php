@@ -43,7 +43,9 @@
 
                         <h3 style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
                             <span>{{ $leader->name }}</span>
-                            <span class="badge badge-draft" style="margin-top:2px;">#{{ $leader->sort_order }}</span>
+                            @if ($is_actor_owner ?? false)
+                                <span class="badge badge-draft" style="margin-top:2px;">#{{ $leader->sort_order }}</span>
+                            @endif
                         </h3>
 
                         @if ($leader->title)
@@ -77,4 +79,3 @@
 
     @include('partials.site.footer', ['footer_class' => 'dark-footer'])
 @endsection
-

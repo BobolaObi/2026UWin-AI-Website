@@ -28,12 +28,14 @@
                     @endif
 
                     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
-                        <div>
-                            <label class="auth-label" for="sort_order">Order</label>
-                            <input id="sort_order" class="auth-input" name="sort_order" type="number" min="0" max="1000000"
-                                   value="{{ old('sort_order', $leader->sort_order) }}" />
-                            @error('sort_order') <div class="auth-error">{{ $message }}</div> @enderror
-                        </div>
+                        @if ($is_actor_owner ?? false)
+                            <div>
+                                <label class="auth-label" for="sort_order">Order</label>
+                                <input id="sort_order" class="auth-input" name="sort_order" type="number" min="0" max="1000000"
+                                       value="{{ old('sort_order', $leader->sort_order) }}" />
+                                @error('sort_order') <div class="auth-error">{{ $message }}</div> @enderror
+                            </div>
+                        @endif
                         <div>
                             <label class="auth-label" for="name">Name</label>
                             <input id="name" class="auth-input" name="name" type="text" required
@@ -84,4 +86,3 @@
 
     @include('partials.site.footer', ['footer_class' => 'dark-footer'])
 @endsection
-
