@@ -18,7 +18,7 @@
         @php
             /** @var \App\Models\User $user */
             $user = auth()->user();
-            $role = $user->role_for_badge();
+            $role = $user->role ?: \App\Models\User::ROLE_MEMBER;
             $can_edit_events = $user->is_editor_role();
             $can_manage_users = $user->is_admin_role();
         @endphp

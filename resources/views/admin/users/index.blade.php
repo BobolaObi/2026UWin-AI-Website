@@ -25,12 +25,6 @@
                 </div>
             @endif
 
-            <div class="panel-kicker">Notes</div>
-            <ul class="panel-list">
-                <li><strong>Admin:</strong> can assign Editor roles.</li>
-                <li><strong>Editor:</strong> can manage events.</li>
-            </ul>
-
             <div class="admin-table">
                 <div class="admin-row admin-head">
                     <div>User</div>
@@ -44,8 +38,7 @@
                         $is_primary_admin = $current_super_admin_id === $user->id;
                         $raw_role = $user->role ?: \App\Models\User::ROLE_MEMBER;
                         $role = $raw_role === \App\Models\User::ROLE_SUPER_ADMIN ? \App\Models\User::ROLE_ADMIN : $raw_role;
-                        $is_protected = ! $is_actor_super_admin && $role === \App\Models\User::ROLE_ADMIN;
-                        $is_locked_row = $is_protected || ($is_actor_super_admin && $is_primary_admin);
+                        $is_locked_row = $is_actor_super_admin && $is_primary_admin;
                     @endphp
                     <div class="admin-row">
                         <div class="admin-title">
@@ -56,26 +49,31 @@
                             <span class="badge {{ $role === 'member' ? 'badge-draft' : 'badge-live' }}">{{ $role }}</span>
                         </div>
                         <div class="admin-actions">
-                            <form method="POST" action="{{ route('admin.users.role', $user) }}">
-                                @csrf
-                                @method('PATCH')
-                                <select class="auth-input" name="role" style="padding:10px 12px; width: 200px;" {{ $is_locked_row ? 'disabled' : '' }} data-role-select>
-                                    <option value="member" {{ $role === 'member' ? 'selected' : '' }}>member</option>
-                                    <option value="editor" {{ $role === 'editor' ? 'selected' : '' }}>editor</option>
-                                    @if ($is_actor_super_admin)
+                            @if ($is_actor_super_admin)
+                                <form method="POST" action="{{ route('admin.users.role', $user) }}">
+                                    @csrf
+                                    @method('PATCH')
+                                    <select class="auth-input" name="role" style="padding:10px 12px; width: 200px;" {{ $is_locked_row ? 'disabled' : '' }} data-role-select>
+                                        <option value="member" {{ $role === 'member' ? 'selected' : '' }}>member</option>
+                                        <option value="editor" {{ $role === 'editor' ? 'selected' : '' }}>editor</option>
                                         <option value="admin" {{ $role === 'admin' ? 'selected' : '' }}>admin</option>
-                                        @if (! $is_primary_admin)
-                                            <option value="primary_admin">make primary admin</option>
-                                        @endif
+                                    </select>
+                                    @if (! $is_locked_row)
+                                        <button class="btn secondary" type="submit" data-role-submit>Update</button>
                                     @endif
-                                </select>
-                                @if ($is_actor_super_admin && ! $is_locked_row)
-                                    <input class="auth-input" type="password" name="password" placeholder="Confirm your password" style="display:none; width: 220px;" data-transfer-password />
-                                @endif
+                                </form>
                                 @if (! $is_locked_row)
-                                    <button class="btn secondary" type="submit" data-role-submit>Update</button>
+                                    <form method="POST" action="{{ route('admin.users.role', $user) }}" style="display:flex; gap:8px; flex-wrap:wrap;">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="hidden" name="role" value="super_admin" />
+                                        <input class="auth-input" type="password" name="password" placeholder="Confirm your password" style="display:none; width: 220px;" data-transfer-password />
+                                        <button class="btn secondary" type="submit" data-transfer-submit>Make super admin</button>
+                                    </form>
                                 @endif
-                            </form>
+                            @else
+                                <span class="admin-when">—</span>
+                            @endif
                         </div>
                     </div>
                 @endforeach
@@ -86,24 +84,24 @@
     @include('partials.site.footer', ['footer_class' => 'dark-footer'])
 @endsection
 
-@push('scripts')
-    <script>
-        document.querySelectorAll('form').forEach((form) => {
-            const select = form.querySelector('[data-role-select]');
-            const password = form.querySelector('[data-transfer-password]');
-            const submit = form.querySelector('[data-role-submit]');
-            if (!select || !password || !submit) return;
+@if ($is_actor_super_admin)
+    @push('scripts')
+        <script>
+            document.querySelectorAll('[data-transfer-submit]').forEach((button) => {
+                const form = button.closest('form');
+                if (!form) return;
+                const password = form.querySelector('[data-transfer-password]');
+                if (!password) return;
 
-            function sync() {
-                const transferring = select.value === 'primary_admin';
-                password.style.display = transferring ? 'inline-block' : 'none';
-                password.required = transferring;
-                if (!transferring) password.value = '';
-                submit.textContent = transferring ? 'Transfer' : 'Update';
-            }
-
-            select.addEventListener('change', sync);
-            sync();
-        });
-    </script>
-@endpush
+                button.addEventListener('click', (e) => {
+                    if (password.style.display === 'none' || password.style.display === '') {
+                        e.preventDefault();
+                        password.style.display = 'inline-block';
+                        password.required = true;
+                        password.focus();
+                    }
+                });
+            });
+        </script>
+    @endpush
+@endif

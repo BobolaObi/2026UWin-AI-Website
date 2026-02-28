@@ -49,9 +49,7 @@ class AdminUsersController extends Controller
         ]);
 
         $requested_role = (string) $validated['role'];
-        if ($requested_role === 'primary_admin') {
-            $requested_role = User::ROLE_SUPER_ADMIN;
-        } elseif (! Roles::is_valid($requested_role)) {
+        if (! Roles::is_valid($requested_role)) {
             abort(422);
         }
 
@@ -59,17 +57,11 @@ class AdminUsersController extends Controller
         $actor = $request->user();
 
         $is_actor_super_admin = $actor->is_super_admin() || $super_admin_service->current_user_id() === $actor->id;
-        $is_actor_admin = $actor->is_admin_role() || $actor->is_admin;
-
-        if (! $is_actor_admin && ! $is_actor_super_admin) {
+        if (! $is_actor_super_admin) {
             abort(403);
         }
 
         if ($requested_role === User::ROLE_SUPER_ADMIN) {
-            if (! $is_actor_super_admin) {
-                abort(403);
-            }
-
             $request->validate([
                 'password' => ['required', 'current_password'],
             ]);
@@ -85,22 +77,6 @@ class AdminUsersController extends Controller
         $current_super_admin_id = $super_admin_service->current_user_id();
         if ($current_super_admin_id === $user->id && $requested_role !== User::ROLE_SUPER_ADMIN) {
             abort(422);
-        }
-
-        if ($requested_role === User::ROLE_ADMIN) {
-            if (! $is_actor_super_admin) {
-                abort(403);
-            }
-        }
-
-        if ($user->role === User::ROLE_ADMIN || $user->role === User::ROLE_SUPER_ADMIN) {
-            if (! $is_actor_super_admin) {
-                abort(403);
-            }
-        }
-
-        if (! $is_actor_super_admin && $requested_role !== User::ROLE_EDITOR && $requested_role !== User::ROLE_MEMBER) {
-            abort(403);
         }
 
         $user->role = $requested_role;

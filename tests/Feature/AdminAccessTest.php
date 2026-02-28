@@ -53,6 +53,20 @@ class AdminAccessTest extends TestCase
             ->assertDontSee('owner');
     }
 
+    public function test_admin_users_page_hides_role_controls_for_non_super_admin(): void
+    {
+        $admin = User::factory()->create([
+            'is_admin' => true,
+            'role' => User::ROLE_ADMIN,
+        ]);
+
+        $this->actingAs($admin)
+            ->get('/admin/users')
+            ->assertOk()
+            ->assertDontSee('data-role-select')
+            ->assertDontSee('Make super admin');
+    }
+
     public function test_editor_can_view_events_admin_page_but_not_admin_dashboard(): void
     {
         $editor = User::factory()->create([
