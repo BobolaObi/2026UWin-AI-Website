@@ -18,6 +18,11 @@
                             {{ __('Manage events') }}
                         </a>
                     </div>
+                    <div>
+                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('admin.users.index') }}">
+                            {{ __('Manage users') }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

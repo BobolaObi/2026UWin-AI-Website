@@ -17,7 +17,23 @@ class EnsureAdmin
     {
         $user = $request->user();
 
-        if (! $user || ! $user->is_admin) {
+        if (! $user) {
+            abort(403);
+        }
+
+        if ($user->is_admin) {
+            return $next($request);
+        }
+
+        if (method_exists($user, 'is_admin_role') && $user->is_admin_role()) {
+            return $next($request);
+        }
+
+        if ((string) ($user->role ?? '') === 'admin' || (string) ($user->role ?? '') === 'super_admin') {
+            return $next($request);
+        }
+
+        if (! $user->is_admin) {
             abort(403);
         }
 
