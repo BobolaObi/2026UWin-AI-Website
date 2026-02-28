@@ -55,11 +55,13 @@
                     <div class="portal-title">Manage users</div>
                     <div class="portal-desc">Assign roles and manage access.</div>
                 </a>
+            @endif
 
+            @if ($can_edit_events)
                 <a class="portal-tile portal-tile-accent" href="{{ route('admin.leaders.index') }}">
-                    <div class="portal-kicker">Admin</div>
+                    <div class="portal-kicker">Editor</div>
                     <div class="portal-title">Leaders page</div>
-                    <div class="portal-desc">Curate who appears on the public leaders page.</div>
+                    <div class="portal-desc">Update the public leaders page.</div>
                 </a>
             @endif
 

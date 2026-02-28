@@ -37,13 +37,13 @@ class LeadersTest extends TestCase
         $this->actingAs($admin)->get('/admin/leaders/create')->assertOk();
     }
 
-    public function test_editor_cannot_access_leaders_admin(): void
+    public function test_editor_can_access_leaders_admin(): void
     {
         $editor = User::factory()->create([
             'role' => User::ROLE_EDITOR,
         ]);
 
-        $this->actingAs($editor)->get('/admin/leaders')->assertForbidden();
+        $this->actingAs($editor)->get('/admin/leaders')->assertOk();
     }
 
     public function test_admin_cannot_set_leader_order(): void
