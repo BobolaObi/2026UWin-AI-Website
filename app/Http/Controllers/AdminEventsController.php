@@ -79,6 +79,22 @@ class AdminEventsController extends Controller
         return redirect()->route('admin.events.index')->with('status', 'Event deleted.');
     }
 
+    public function toggle(Request $request, Event $event): RedirectResponse
+    {
+        $event->is_published = ! $event->is_published;
+        $event->save();
+
+        $this->audit($request, 'events.toggle_publish', [
+            'event_id' => $event->id,
+            'is_published' => $event->is_published,
+        ]);
+
+        return redirect()->route('admin.events.index')->with(
+            'status',
+            $event->is_published ? 'Event published.' : 'Event unpublished.'
+        );
+    }
+
     private function validated_data(Request $request): array
     {
         $validated = $request->validate([

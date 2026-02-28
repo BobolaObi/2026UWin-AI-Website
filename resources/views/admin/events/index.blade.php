@@ -19,45 +19,65 @@
                 <div class="auth-status">{{ session('status') }}</div>
             @endif
 
-            <div class="panel-actions" style="margin-bottom: 12px;">
-                <a class="btn primary breath" href="{{ route('admin.events.create') }}">New event</a>
-                <a class="btn secondary" href="{{ route('events') }}" target="_blank" rel="noreferrer">View site events</a>
+            <div class="panel-actions panel-actions-spaced">
+                <a class="btn primary breath" href="{{ route('admin.events.create') }}">Add event</a>
+                <a class="btn secondary" href="{{ route('events') }}" target="_blank" rel="noreferrer">Preview</a>
             </div>
 
-            <div class="admin-table">
-                <div class="admin-row admin-head">
-                    <div>Title</div>
-                    <div>When</div>
-                    <div>Status</div>
-                    <div></div>
-                </div>
-
+            <div class="event-admin-list">
                 @forelse ($events as $event)
                     @php
-                        $when = $event->starts_at
-                            ? $event->starts_at->timezone(config('app.timezone'))->format('M j, Y g:i A')
+                        $timezone = config('app.timezone');
+                        $when = ($event->starts_at && $event->ends_at)
+                            ? $event->starts_at->timezone($timezone)->format('M j, Y').' · '.$event->starts_at->timezone($timezone)->format('g:i A').'–'.$event->ends_at->timezone($timezone)->format('g:i A')
                             : '';
+                        $location_text = $event->location ?: '';
+                        $description_text = $event->description ?: '';
                     @endphp
-                    <div class="admin-row">
-                        <div class="admin-title">{{ $event->title }}</div>
-                        <div class="admin-when">{{ $when }}</div>
-                        <div>
-                            <span class="badge {{ $event->is_published ? 'badge-live' : 'badge-draft' }}">
-                                {{ $event->is_published ? 'Published' : 'Draft' }}
-                            </span>
+                    <div class="event-row event-row-admin" data-reveal>
+                        <div class="event-admin-main">
+                            <div class="event-admin-top">
+                                <h3 class="event-admin-title">
+                                    {{ $event->title }}
+                                    @if ($location_text !== '')
+                                        <span>{{ $location_text }}</span>
+                                    @endif
+                                </h3>
+                                <span class="badge {{ $event->is_published ? 'badge-live' : 'badge-draft' }}">
+                                    {{ $event->is_published ? 'Published' : 'Draft' }}
+                                </span>
+                            </div>
+                            @if ($description_text !== '')
+                                <p class="event-admin-desc">{{ $description_text }}</p>
+                            @endif
                         </div>
-                        <div class="admin-actions">
-                            <a class="btn secondary" href="{{ route('admin.events.edit', $event) }}">Edit</a>
-                            <form method="POST" action="{{ route('admin.events.destroy', $event) }}" onsubmit="return confirm('Delete this event?');">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn secondary" type="submit">Delete</button>
-                            </form>
+
+                        <div class="event-admin-side">
+                            <div class="event-date breath">{{ $when }}</div>
+                            <div class="event-admin-actions">
+                                <a class="btn secondary" href="{{ route('admin.events.edit', $event) }}">Edit</a>
+                                <form method="POST" action="{{ route('admin.events.toggle', $event) }}">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button class="btn secondary" type="submit">
+                                        {{ $event->is_published ? 'Unpublish' : 'Publish' }}
+                                    </button>
+                                </form>
+                                <form method="POST" action="{{ route('admin.events.destroy', $event) }}" onsubmit="return confirm('Delete this event?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn secondary" type="submit">Delete</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 @empty
-                    <div class="admin-empty">
-                        No events yet. Create one with “New event”.
+                    <div class="panel-card" data-reveal>
+                        <div class="panel-kicker">No events yet</div>
+                        <p class="sub" style="margin:0;">Create your first event to populate the public events page.</p>
+                        <div class="panel-actions" style="margin-top:12px;">
+                            <a class="btn primary breath" href="{{ route('admin.events.create') }}">Add event</a>
+                        </div>
                     </div>
                 @endforelse
             </div>
@@ -66,4 +86,3 @@
 
     @include('partials.site.footer', ['footer_class' => 'dark-footer'])
 @endsection
-

@@ -21,6 +21,11 @@
                     @method('PUT')
                 @endif
 
+                <div class="panel-actions panel-actions-spaced">
+                    <button class="btn primary breath" type="submit">{{ $mode === 'edit' ? 'Save changes' : 'Create event' }}</button>
+                    <a class="btn secondary" href="{{ route('admin.events.index') }}">Cancel</a>
+                </div>
+
                 <label class="auth-label" for="title">Title</label>
                 <input id="title" class="auth-input" name="title" type="text" value="{{ old('title', $event->title) }}" required />
                 @error('title') <div class="auth-error">{{ $message }}</div> @enderror
@@ -63,15 +68,9 @@
                     <input id="is_published" type="checkbox" name="is_published" value="1" {{ old('is_published', $event->is_published) ? 'checked' : '' }} />
                     <span>Published</span>
                 </label>
-
-                <div class="auth-actions">
-                    <button class="btn primary breath" type="submit">{{ $mode === 'edit' ? 'Save changes' : 'Create event' }}</button>
-                    <a class="btn secondary" href="{{ route('admin.events.index') }}">Cancel</a>
-                </div>
             </form>
         </div>
     </div>
 
     @include('partials.site.footer', ['footer_class' => 'dark-footer'])
 @endsection
-

@@ -30,6 +30,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/events', [AdminEventsController::class, 'store'])->name('admin.events.store');
     Route::get('/admin/events/{event}/edit', [AdminEventsController::class, 'edit'])->name('admin.events.edit');
     Route::put('/admin/events/{event}', [AdminEventsController::class, 'update'])->name('admin.events.update');
+    Route::patch('/admin/events/{event}/toggle', [AdminEventsController::class, 'toggle'])->name('admin.events.toggle');
     Route::delete('/admin/events/{event}', [AdminEventsController::class, 'destroy'])->name('admin.events.destroy');
 });
 
