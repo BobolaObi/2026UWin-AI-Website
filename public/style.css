@@ -740,7 +740,7 @@ pre{
 }
 .dashboard-page .events-shell,
 .admin-page .events-shell{
-  max-width:1440px;
+  max-width:1680px;
 }
 .event-list{
   display:flex;
@@ -810,16 +810,6 @@ pre{
   display:flex;
   flex-direction:column;
   gap:12px;
-}
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(12, minmax(0, 1fr));
-  gap:12px;
-}
-.form-span-12{grid-column:span 12;}
-.form-span-6{grid-column:span 6;}
-@media(max-width:900px){
-  .form-span-6{grid-column:span 12;}
 }
 .auth-label{
   font-weight:var(--fw-bold);
