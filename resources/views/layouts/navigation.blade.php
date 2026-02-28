@@ -26,8 +26,10 @@
                             <div>{{ Auth::user()->name }}</div>
 
                             @php
-                                $role = Auth::user()->role ?: 'member';
-                                $show_role = in_array($role, ['editor', 'admin', 'super_admin'], true);
+                                /** @var \App\Models\User $user */
+                                $user = Auth::user();
+                                $role = $user->role_for_badge();
+                                $show_role = in_array($role, ['editor', 'admin'], true);
                                 $role_label = strtoupper(str_replace('_', ' ', $role));
                             @endphp
                             @if ($show_role)

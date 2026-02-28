@@ -25,19 +25,11 @@
                 </div>
             @endif
 
-            @if ($is_actor_super_admin)
-                <div class="panel-kicker">Rules</div>
-                <ul class="panel-list">
-                    <li><strong>Protected account:</strong> exactly one; can assign any role.</li>
-                    <li><strong>Admin:</strong> can assign Editor roles.</li>
-                    <li><strong>Editor:</strong> can manage events.</li>
-                </ul>
-            @else
-                <div class="panel-kicker">Note</div>
-                <p class="sub" style="margin:0;">
-                    You can assign <strong>editor</strong> access. Protected accounts can’t be changed here.
-                </p>
-            @endif
+            <div class="panel-kicker">Notes</div>
+            <ul class="panel-list">
+                <li><strong>Admin:</strong> can assign Editor roles.</li>
+                <li><strong>Editor:</strong> can manage events.</li>
+            </ul>
 
             <div class="admin-table">
                 <div class="admin-row admin-head">
@@ -49,12 +41,11 @@
 
                 @foreach ($users as $user)
                     @php
-                        $is_super = $current_super_admin_id === $user->id || $user->role === \App\Models\User::ROLE_SUPER_ADMIN;
-                        $raw_role = $is_super ? \App\Models\User::ROLE_SUPER_ADMIN : ($user->role ?: \App\Models\User::ROLE_MEMBER);
-                        $role = (! $is_actor_super_admin && $raw_role === \App\Models\User::ROLE_SUPER_ADMIN)
-                            ? \App\Models\User::ROLE_ADMIN
-                            : $raw_role;
-                        $is_protected = ! $is_actor_super_admin && in_array($raw_role, [\App\Models\User::ROLE_ADMIN, \App\Models\User::ROLE_SUPER_ADMIN], true);
+                        $is_primary_admin = $current_super_admin_id === $user->id;
+                        $raw_role = $user->role ?: \App\Models\User::ROLE_MEMBER;
+                        $role = $raw_role === \App\Models\User::ROLE_SUPER_ADMIN ? \App\Models\User::ROLE_ADMIN : $raw_role;
+                        $is_protected = ! $is_actor_super_admin && $role === \App\Models\User::ROLE_ADMIN;
+                        $is_locked_row = $is_protected || ($is_actor_super_admin && $is_primary_admin);
                     @endphp
                     <div class="admin-row">
                         <div class="admin-title">
@@ -68,18 +59,20 @@
                             <form method="POST" action="{{ route('admin.users.role', $user) }}">
                                 @csrf
                                 @method('PATCH')
-                                <select class="auth-input" name="role" style="padding:10px 12px; width: 200px;" {{ $is_protected ? 'disabled' : '' }} data-role-select>
+                                <select class="auth-input" name="role" style="padding:10px 12px; width: 200px;" {{ $is_locked_row ? 'disabled' : '' }} data-role-select>
                                     <option value="member" {{ $role === 'member' ? 'selected' : '' }}>member</option>
                                     <option value="editor" {{ $role === 'editor' ? 'selected' : '' }}>editor</option>
                                     @if ($is_actor_super_admin)
                                         <option value="admin" {{ $role === 'admin' ? 'selected' : '' }}>admin</option>
-                                        <option value="super_admin" {{ $role === 'super_admin' ? 'selected' : '' }}>transfer ownership</option>
+                                        @if (! $is_primary_admin)
+                                            <option value="primary_admin">make primary admin</option>
+                                        @endif
                                     @endif
                                 </select>
-                                @if ($is_actor_super_admin && ! $is_protected)
+                                @if ($is_actor_super_admin && ! $is_locked_row)
                                     <input class="auth-input" type="password" name="password" placeholder="Confirm your password" style="display:none; width: 220px;" data-transfer-password />
                                 @endif
-                                @if (! $is_protected)
+                                @if (! $is_locked_row)
                                     <button class="btn secondary" type="submit" data-role-submit>Update</button>
                                 @endif
                             </form>
@@ -102,7 +95,7 @@
             if (!select || !password || !submit) return;
 
             function sync() {
-                const transferring = select.value === 'super_admin';
+                const transferring = select.value === 'primary_admin';
                 password.style.display = transferring ? 'inline-block' : 'none';
                 password.required = transferring;
                 if (!transferring) password.value = '';

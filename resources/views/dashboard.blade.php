@@ -53,7 +53,7 @@
                 <a class="portal-tile portal-tile-accent" href="{{ route('admin.users.index') }}">
                     <div class="portal-kicker">Admin</div>
                     <div class="portal-title">Manage users</div>
-                    <div class="portal-desc">Assign roles (only the owner can manage admins).</div>
+                    <div class="portal-desc">Assign roles and manage access.</div>
                 </a>
 
                 <a class="portal-tile portal-tile-accent" href="{{ route('admin.leaders.index') }}">

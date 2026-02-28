@@ -38,6 +38,21 @@ class AdminAccessTest extends TestCase
         $this->actingAs($admin)->get('/admin/events')->assertOk();
     }
 
+    public function test_admin_users_ui_does_not_expose_internal_roles(): void
+    {
+        $admin = User::factory()->create([
+            'is_admin' => true,
+            'role' => User::ROLE_ADMIN,
+        ]);
+
+        $this->actingAs($admin)
+            ->get('/admin/users')
+            ->assertOk()
+            ->assertDontSee('super_admin')
+            ->assertDontSee('make primary admin')
+            ->assertDontSee('owner');
+    }
+
     public function test_editor_can_view_events_admin_page_but_not_admin_dashboard(): void
     {
         $editor = User::factory()->create([

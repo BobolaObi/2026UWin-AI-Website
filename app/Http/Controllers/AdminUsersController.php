@@ -49,7 +49,9 @@ class AdminUsersController extends Controller
         ]);
 
         $requested_role = (string) $validated['role'];
-        if (! Roles::is_valid($requested_role)) {
+        if ($requested_role === 'primary_admin') {
+            $requested_role = User::ROLE_SUPER_ADMIN;
+        } elseif (! Roles::is_valid($requested_role)) {
             abort(422);
         }
 
@@ -77,7 +79,7 @@ class AdminUsersController extends Controller
                 'target_user_id' => $user->id,
             ]);
 
-            return redirect()->route('admin.users.index')->with('status', 'Ownership transferred.');
+            return redirect()->route('admin.users.index')->with('status', 'Primary admin updated.');
         }
 
         $current_super_admin_id = $super_admin_service->current_user_id();
