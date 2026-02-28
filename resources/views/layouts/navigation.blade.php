@@ -28,7 +28,8 @@
                             @php
                                 /** @var \App\Models\User $user */
                                 $user = Auth::user();
-                                $role = $user->role ?: 'member';
+                                $current_super_admin_id = app(\App\Services\SuperAdminService::class)->current_user_id();
+                                $role = $current_super_admin_id === $user->id ? 'super_admin' : ($user->role ?: 'member');
                                 $show_role = in_array($role, ['editor', 'admin', 'super_admin'], true);
                                 $role_label = strtoupper(str_replace('_', ' ', $role));
                             @endphp

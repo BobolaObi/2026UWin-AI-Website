@@ -37,7 +37,9 @@
                     @php
                         $is_primary_admin = $current_super_admin_id === $user->id;
                         $raw_role = $user->role ?: \App\Models\User::ROLE_MEMBER;
-                        $role = $raw_role === \App\Models\User::ROLE_SUPER_ADMIN ? \App\Models\User::ROLE_ADMIN : $raw_role;
+                        $role = ($is_actor_super_admin && $is_primary_admin)
+                            ? \App\Models\User::ROLE_SUPER_ADMIN
+                            : ($raw_role === \App\Models\User::ROLE_SUPER_ADMIN ? \App\Models\User::ROLE_ADMIN : $raw_role);
                         $is_locked_row = $is_actor_super_admin && $is_primary_admin;
                     @endphp
                     <div class="admin-row">
