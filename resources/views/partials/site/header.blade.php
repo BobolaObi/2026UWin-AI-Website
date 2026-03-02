@@ -2,11 +2,24 @@
   <a class="brand" title="Windsor AI Club Logo" href="{{ route('home') }}" data-reveal>
     Windsor AI Club
   </a>
-  <nav>
+  <nav class="site-nav" aria-label="Primary navigation">
     <a class="{{ request()->routeIs('events') ? 'active' : '' }}" href="{{ route('events') }}" title="View our upcoming events">Events</a>
     <a class="{{ request()->routeIs('leaders') ? 'active' : '' }}" href="{{ route('leaders') }}" title="Meet the group leaders">Leaders</a>
     <a class="{{ request()->routeIs('join') ? 'active' : '' }}" href="{{ route('join') }}" title="Find out how to join the Windsor AI Club">Join</a>
   </nav>
+
+  <button
+    class="nav-toggle"
+    type="button"
+    aria-label="Open menu"
+    aria-controls="mobileNav"
+    aria-expanded="false"
+    data-nav-toggle
+  >
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </button>
 
   @auth
     @php
@@ -23,4 +36,23 @@
       @endif
     </div>
   @endauth
+
+  <div class="mobile-nav" id="mobileNav" hidden>
+    <div class="mobile-nav-backdrop" data-nav-close></div>
+    <div class="mobile-nav-panel" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="mobile-nav-header">
+        <span class="mobile-nav-title">Menu</span>
+        <button class="mobile-nav-close" type="button" aria-label="Close menu" data-nav-close>×</button>
+      </div>
+      <nav class="mobile-nav-links" aria-label="Mobile navigation">
+        <a href="{{ route('home') }}">Home</a>
+        <a href="{{ route('events') }}">Events</a>
+        <a href="{{ route('leaders') }}">Leaders</a>
+        <a href="{{ route('join') }}">Join</a>
+        @auth
+          <a href="{{ route('dashboard') }}">Dashboard</a>
+        @endauth
+      </nav>
+    </div>
+  </div>
 </header>

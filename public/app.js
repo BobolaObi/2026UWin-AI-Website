@@ -3,6 +3,36 @@
   if (prefersReducedMotion) return;
 
   const onReady = () => {
+    const navToggle = document.querySelector('[data-nav-toggle]');
+    const mobileNav = document.getElementById('mobileNav');
+    const navCloseButtons = Array.from(document.querySelectorAll('[data-nav-close]'));
+
+    const setNavOpen = (open) => {
+      document.body.classList.toggle('nav-open', open);
+      if (navToggle) navToggle.setAttribute('aria-expanded', String(open));
+      if (mobileNav) mobileNav.hidden = !open;
+    };
+
+    if (navToggle && mobileNav) {
+      navToggle.addEventListener('click', () => {
+        setNavOpen(!document.body.classList.contains('nav-open'));
+      });
+
+      navCloseButtons.forEach((btn) => {
+        btn.addEventListener('click', () => setNavOpen(false));
+      });
+
+      mobileNav.addEventListener('click', (e) => {
+        const target = e.target;
+        if (!(target instanceof Element)) return;
+        if (target.closest('a')) setNavOpen(false);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') setNavOpen(false);
+      });
+    }
+
     // Stagger any reveal-marked elements.
     const isLeadersPage = document.body.classList.contains('leaders-page');
     const revealNodes = Array.from(document.querySelectorAll('[data-reveal]'));
