@@ -17,6 +17,7 @@
 
 *{box-sizing:border-box;}
 
+html{overflow-x:hidden;}
 body{
   margin:0;
   font-family:var(--font-sans);
@@ -27,6 +28,7 @@ body{
   min-height:100vh;
   display:flex;
   flex-direction:column;
+  overflow-x:hidden;
 }
 
 /* Homepage soft glow (no gradients) */
@@ -1568,6 +1570,7 @@ body.home-page .footer{
     justify-content:flex-start;
     flex-wrap:nowrap;
     overflow-x:auto;
+    overscroll-behavior-x:contain;
     padding:0 6px 12px;
     scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
