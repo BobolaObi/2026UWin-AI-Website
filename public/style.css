@@ -280,7 +280,7 @@ header nav a.active::after{
   color:#fff;
   box-shadow:0 10px 30px rgba(185,28,28,.25);
 }
-.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+.meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:10px;}
 .hero-social{display:none;}
 .hero-social-link{
   display:inline-flex;
@@ -1568,6 +1568,7 @@ body.home-page .footer{
     margin-left:0;
     transform:none;
     animation:none;
+    opacity:1;
   }
   .floating-label:not(.pop-tag){display:none;}
 }
