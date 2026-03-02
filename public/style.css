@@ -608,6 +608,9 @@ pre{
   overflow:hidden;
   margin-top:auto;
 }
+body.home-page .footer{
+  margin-top:0;
+}
 .footer::before{
   content:'';
   position:absolute;
