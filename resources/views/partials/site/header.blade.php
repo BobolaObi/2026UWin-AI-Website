@@ -16,9 +16,11 @@
     aria-expanded="false"
     data-nav-toggle
   >
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
+    <span class="nav-toggle-icon" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
     <span class="nav-toggle-label">Menu</span>
   </button>
 
