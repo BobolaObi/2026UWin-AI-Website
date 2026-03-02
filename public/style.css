@@ -1521,8 +1521,7 @@ body.home-page .footer{
 
 @media(max-width:960px){
   .shell{padding:30px 22px 60px;}
-  .hero-grid{display:flex;flex-direction:column;align-items:center;gap:28px;}
-  .hero-visual{order:-1;}
+  .hero-grid{display:flex;flex-direction:column;align-items:center;gap:28px;padding-top:56px;}
   .hero-copy h1{font-size:48px;}
 }
 
@@ -1535,10 +1534,10 @@ body.home-page .footer{
   nav{display:none;}
   .shell{padding:24px 18px 50px;}
   .hero-copy h1{font-size:40px;}
-  .hero-copy{align-items:flex-start;text-align:left;}
-  .hero-grid{align-items:flex-start;}
-  .actions{justify-content:flex-start;flex-wrap:wrap;}
-  .event-strip{gap:12px;flex-wrap:wrap;justify-content:flex-start;}
+  .hero-copy{align-items:center;text-align:center;}
+  .hero-grid{align-items:center;padding-top:40px;}
+  .actions{justify-content:center;flex-wrap:wrap;}
+  .event-strip{gap:12px;flex-wrap:wrap;justify-content:center;}
   .event-card{width:150px;height:210px;margin-left:0;transform:none;}
   .floating-label:not(.pop-tag){display:none;}
 }
