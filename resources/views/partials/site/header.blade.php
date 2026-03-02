@@ -11,7 +11,7 @@
   <button
     class="nav-toggle"
     type="button"
-    aria-label="Open menu"
+    aria-label="Menu"
     aria-controls="mobileNav"
     aria-expanded="false"
     data-nav-toggle
@@ -19,6 +19,7 @@
     <span aria-hidden="true"></span>
     <span aria-hidden="true"></span>
     <span aria-hidden="true"></span>
+    <span class="nav-toggle-label">Menu</span>
   </button>
 
   @auth

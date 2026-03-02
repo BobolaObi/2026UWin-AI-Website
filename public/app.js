@@ -1,6 +1,5 @@
 (() => {
   const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
-  if (prefersReducedMotion) return;
 
   const onReady = () => {
     const navToggle = document.querySelector('[data-nav-toggle]');
@@ -32,6 +31,8 @@
         if (e.key === 'Escape') setNavOpen(false);
       });
     }
+
+    if (prefersReducedMotion) return;
 
     // Stagger any reveal-marked elements.
     const isLeadersPage = document.body.classList.contains('leaders-page');
