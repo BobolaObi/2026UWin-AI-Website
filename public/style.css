@@ -1629,19 +1629,21 @@ body.home-page .footer{
   .mobile-nav-backdrop{
     position:absolute;
     inset:0;
-    background:rgba(14,27,42,.5);
-    backdrop-filter:blur(10px);
+    /* background:rgba(255,255,255,.18); */
+    /* backdrop-filter:blur(8px); */
   }
   .mobile-nav-panel{
     position:absolute;
     top:14px;
     left:14px;
     right:14px;
+    max-height:calc(100dvh - 28px);
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
     border-radius:18px;
     background:#ffffff;
     border:1px solid rgba(14,27,42,.12);
     box-shadow:0 30px 80px rgba(0,0,0,.22);
-    overflow:hidden;
   }
   .mobile-nav-header{
     display:flex;
@@ -1669,6 +1671,7 @@ body.home-page .footer{
     display:flex;
     flex-direction:column;
     padding:10px;
+    padding-bottom:calc(10px + env(safe-area-inset-bottom));
     gap:6px;
   }
   .mobile-nav-links a{
