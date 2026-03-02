@@ -339,30 +339,25 @@ header nav a.active::after{
 .card-band::before {
     content: '';
     position: absolute;
-    /* left: -12vw; */
-    /* right: -12vw; */
     top: 130px;
     height: 200px;
     background: var(--navy);
-    /* border-radius: 52px 52px 0 0; */
     z-index: 0;
     width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
 
 }
 .card-band::after{
   content:'';
-
+  position: absolute;
   top:116px;
   height:14px;
   background:var(--gold);
   z-index:1;
-
-
-      content: '';
-    position: absolute;
-  
-  
-    width: 100vw;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
 
 }
 
@@ -1565,24 +1560,14 @@ body.home-page .footer{
   }
   body.home-page .hero-visual{min-height:auto;}
   .card-band{padding-top:0;}
-  .event-strip{
-    gap:12px;
-    justify-content:flex-start;
-    flex-wrap:nowrap;
-    overflow-x:auto;
-    overscroll-behavior-x:contain;
-    padding:0 6px 12px;
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-  }
+  .event-strip{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;justify-items:center;}
   .event-card{
-    flex:0 0 auto;
-    width:220px;
-    height:280px;
+    width:100%;
+    max-width:170px;
+    height:220px;
     margin-left:0;
     transform:none;
     animation:none;
-    scroll-snap-align:center;
   }
   .floating-label:not(.pop-tag){display:none;}
 }
@@ -1592,7 +1577,7 @@ body.home-page .footer{
   .sub{font-size:16px;}
   .btn{width:100%;text-align:center;}
   .hero-social-link span{display:none;}
-  .event-card{width:200px;height:260px;}
+  .event-card{max-width:160px;height:210px;}
   .hero{gap:16px;}
 }
 
