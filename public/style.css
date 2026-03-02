@@ -1537,8 +1537,26 @@ body.home-page .footer{
   .hero-copy{align-items:center;text-align:center;}
   .hero-grid{align-items:center;padding-top:40px;}
   .actions{justify-content:center;flex-wrap:wrap;}
-  .event-strip{gap:12px;flex-wrap:wrap;justify-content:center;}
-  .event-card{width:150px;height:210px;margin-left:0;transform:none;}
+  body.home-page .hero-visual{min-height:auto;}
+  .card-band{padding-top:0;}
+  .event-strip{
+    gap:12px;
+    justify-content:flex-start;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    padding:0 6px 12px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+  .event-card{
+    flex:0 0 auto;
+    width:220px;
+    height:280px;
+    margin-left:0;
+    transform:none;
+    animation:none;
+    scroll-snap-align:center;
+  }
   .floating-label:not(.pop-tag){display:none;}
 }
 
@@ -1546,7 +1564,7 @@ body.home-page .footer{
   .hero-copy h1{font-size:34px;line-height:1.08;}
   .sub{font-size:16px;}
   .btn{width:100%;text-align:center;}
-  .event-card{width:130px;height:180px;}
+  .event-card{width:200px;height:260px;}
   .hero{gap:16px;}
 }
 
