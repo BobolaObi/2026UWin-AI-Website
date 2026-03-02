@@ -741,10 +741,9 @@ body.home-page .footer{
   min-height:100vh;
   font-family:var(--font-sans);
 }
-.events-hero{
+.events-hero {
   position:relative;
-  padding:28px 34px 30px;
-  overflow:hidden;
+  padding:28px 34px 0px;
 }
 .events-nav{
   display:flex;
@@ -1629,8 +1628,9 @@ body.home-page .footer{
   .mobile-nav-backdrop{
     position:absolute;
     inset:0;
-    /* background:rgba(255,255,255,.18); */
+    background:rgba(255,255,255,.18);
     /* backdrop-filter:blur(8px); */
+    background-color: none;
   }
   .mobile-nav-panel{
     position:absolute;
