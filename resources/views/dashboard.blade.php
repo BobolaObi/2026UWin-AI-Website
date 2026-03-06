@@ -29,6 +29,15 @@
         </div>
 
         <div class="portal-grid" data-reveal>
+            @if ($can_edit_events)
+                <a class="portal-tile portal-tile-accent portal-tile-flagged" href="{{ route('admin.leaders.index') }}">
+                    <span class="portal-flag">Start here</span>
+                    <div class="portal-kicker">Editor</div>
+                    <div class="portal-title">Leaders page</div>
+                    <div class="portal-desc">Update the public leaders page.</div>
+                </a>
+            @endif
+
             <a class="portal-tile" href="{{ route('profile.edit') }}">
                 <div class="portal-kicker">Account</div>
                 <div class="portal-title">Profile</div>
@@ -54,15 +63,6 @@
                     <div class="portal-kicker">Admin</div>
                     <div class="portal-title">Manage users</div>
                     <div class="portal-desc">Assign roles and manage access.</div>
-                </a>
-            @endif
-
-            @if ($can_edit_events)
-                <a class="portal-tile portal-tile-accent portal-tile-flagged" href="{{ route('admin.leaders.index') }}">
-                    <span class="portal-flag">Start here</span>
-                    <div class="portal-kicker">Editor</div>
-                    <div class="portal-title">Leaders page</div>
-                    <div class="portal-desc">Update the public leaders page.</div>
                 </a>
             @endif
 
