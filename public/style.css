@@ -1140,6 +1140,25 @@ body.home-page .footer{
   font-weight:var(--fw-semibold);
   line-height:1.5;
 }
+.portal-tile-flagged{
+  position:relative;
+  overflow:hidden;
+}
+.portal-flag{
+  position:absolute;
+  top:14px;
+  right:-54px;
+  transform:rotate(35deg);
+  background:rgba(220,38,38,.96);
+  color:#fff;
+  padding:6px 64px;
+  font-size:11px;
+  font-weight:var(--fw-extrabold);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  box-shadow:0 18px 44px rgba(0,0,0,.14);
+  border:1px solid rgba(255,255,255,.35);
+}
 @media(max-width:900px){
   .portal-tile{grid-column:span 12;}
 }
